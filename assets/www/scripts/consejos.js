@@ -10,7 +10,19 @@ function onDeviceReady() {
 }
 
 function gotFS(fileSystem) {
-    fileSystem.root.getFile("TATB_Productos2.json", null, gotFileEntry, fail);
+    //fileSystem.root.getFile("TATB_Productos2.json", null, gotFileEntry, fail);
+
+    var dirReader = fileSystem.root.createReader();
+    dirReader.readEntries(success, fail);
+}
+
+function success (entries) {
+    for (var i = 0; i < entries.length; i++) {
+        if(entries[i].name === "DrAgro")
+        {
+            entries[i].getFile("TATB_Productos2.json", null, gotFileEntry, fail);
+        }
+    };
 }
 
 function gotFileEntry(fileEntry) {
