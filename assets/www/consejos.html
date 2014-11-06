@@ -1,39 +1,82 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 
 
-<script type="text/javascript" src="scripts/prefixfree.min.js"></script>
-<link href="styles/style.css"     		rel="stylesheet" type="text/css">
-<link href="styles/framework.css" 		rel="stylesheet" type="text/css">
-<link href="styles/swipebox.css"		 rel="stylesheet" type="text/css">
-<link href="styles/colorbox.css"		 rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="scripts/prefixfree.min.js"></script>
+    <link href="styles/style.css"     		rel="stylesheet" type="text/css">
+    <link href="styles/framework.css" 		rel="stylesheet" type="text/css">
+    <link href="styles/swipebox.css"		 rel="stylesheet" type="text/css">
+    <link href="styles/colorbox.css"		 rel="stylesheet" type="text/css">
+    <link href="styles/jquery-ui.css"     rel="stylesheet" type="text/css">
 
-<script type="text/javascript" src="scripts/jquery.js"></script>
-<script type="text/javascript" src="scripts/jqueryui.js"></script>
-<script type="text/javascript" src="scripts/owl.carousel.min.js"></script>
-<script type="text/javascript" src="scripts/jquery.swipebox.js"></script>
-<script type="text/javascript" src="scripts/colorbox.js"></script>
-<script type="text/javascript" src="scripts/snap.js"></script>
-<script type="text/javascript" src="scripts/contact.js"></script>
-<script type="text/javascript" src="scripts/custom.js"></script>
-<script type="text/javascript" src="scripts/framework.js"></script>
-<script type="text/javascript" src="scripts/framework.launcher.js"></script>
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="scripts/consejos.js"></script>
-<script type="text/javascript" src="scripts/menuHeight.js"></script>
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/jqueryui.js"></script>
+    <script type="text/javascript" src="scripts/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.swipebox.js"></script>
+    <script type="text/javascript" src="scripts/colorbox.js"></script>
+    <script type="text/javascript" src="scripts/snap.js"></script>
+    <script type="text/javascript" src="scripts/contact.js"></script>
+    <script type="text/javascript" src="scripts/custom.js"></script>
+    <script type="text/javascript" src="scripts/framework.js"></script>
+    <script type="text/javascript" src="scripts/framework.launcher.js"></script>
+    <script type="text/javascript" src="scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/consejos.js"></script>
+    <script type="text/javascript" src="scripts/menuHeight.js"></script>
+    <script type="text/javascript">
+        
+        $(document).ready(function() {
+            var applaunchCount = window.localStorage.getItem('launchCount');
+            
+            if(applaunchCount) {
+                changeLink();
+            }
+
+        });
+
+        function changeLink(){
+            $("#idLink").empty();
+            $("#idLink").append('<a href="acerca.html" class="nav-regular">Acerca de Mí</a>');
+        }
+
+    </script>
+
+    <style type="text/css">
+        .ui-widget-header{
+            border: 1px solid #27ae60 !important;
+            background-color: #27ae60 !important;
+            background: #27ae60 !important;
+        }
+
+
+        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+            color: #FFFFFF !important;  
+        }
+        .ui-dialog .ui-dialog-buttonpane button{
+            background:#27ae60 !important;
+            border: 1px solid #27ae60 !important;
+        }
+
+       /* #sidebar{
+            display: none;
+        }*/
+    </style>
 
 </head>
 <body onload="onLoad()">
-
-<div id="preloader">
-	<div id="status">
-    	<p class="center-text">
+<div id="div-confirm" style="display:none" >
+                    <div id="content-alert">
+                    </div>
+            </div>
+    <div id="preloader">
+       <div id="status">
+           <p class="center-text">
             Cargando Consejos del Dr.Agro...            
         </p>
     </div>
@@ -43,110 +86,135 @@
 <div class="all-elements-adaptado">
     <div id="sidebar" class="page-sidebar">
         <div class="page-sidebar-scroll scroll">
-			<div id="contentMenu" class="sidebar-content-background scroll" style="height:100%;">
-            	<div class="sidebar-section">
-                    <a href="#" class="sidebar-close"></a>
-                    <em>Menu</em>
-                </div>                      
-                
-                <div class="sidebar-logo"></div>   
-                
-                <div class="sidebar-navigation">                              
-                     
-                    <div class="nav-item">
-                        <a href="acerca.html" class="nav-regular">Acerca de Mí</a>
-                    </div>
-                    <div class="nav-item plagas PlagasOrganismos">
-                        <a href="busqueda.html" class="nav-regular">Plagas y Enfermedades</a>
-                    </div>     
-                    <div class="nav-item seccionesPlagasOrganismos">
-                        <a href="#" class="dropdown-nav">Plagas y Enfermedades</a>
-                        <div class="nav-item-submenu">
-                            <a href="busqueda.html">Ficha Técnica</a> 
-                            <a href="galeria.html">Galería de Fotos</a>                            
-                        </div>
-                    </div>                
-                    <div class="nav-item">
-                        <a href="consejos.html" class="nav-regular">Consejos del Dr.Agro</a>
-                    </div>
-                    <div class="nav-item PlagasOrganismos">
-                        <a href="galeria.html" class="nav-regular">Galería de Fotos</a>
-                    </div>                                        
-                    <div class="nav-item">
-                        <a href="contacto.html" class="nav-regular">Contacto</a>
-                    </div>
-                    <div class="nav-item">
-                        <a href="#" class="dropdown-nav">Administración</a>
-                        <div class="nav-item-submenu">
-                            <a href="adminCultivo.html">Descargar Contenido</a>
-                            <a href="elimCultivo.html">Eliminar Contenido</a>
-                        
-                            <a href="acerca-de.html">Acerca De</a>
-                            <a href="terminos.html">Términos y Condiciones</a>
-                        </div>
-                    </div> 
-                </div>
-                
-                <div class="sidebar-decoration"></div>
-                
-                <img src="images/dr-agro/LogoCorpoica-sintxt-Blanco.png" style="max-width:90%;margin-left:auto;margin-right:auto">               
-                
-                
-                
+         <div id="contentMenu" class="sidebar-content-background scroll" style="height:100%;">
+           <div class="sidebar-section">
+            <a href="#" class="sidebar-close" onclick="esconderMenu()"></a>
+            <em>Menu</em>
+        </div>                      
+
+        <div class="sidebar-logo"></div>   
+
+        <div class="sidebar-navigation">                              
+
+            <div id="idLink" class="nav-item">
+                <a href="index.html" class="nav-regular">Acerca de Mí</a>
             </div>
+            <div class="nav-item plagas PlagasOrganismos">
+                <a href="busqueda.html" class="nav-regular">Plagas y Enfermedades</a>
+            </div>     
+            <div class="nav-item seccionesPlagasOrganismos">
+                <a href="#" class="dropdown-nav">Plagas y Enfermedades</a>
+                <div class="nav-item-submenu">
+                    <a href="busqueda.html">Ficha Técnica</a> 
+                    <a href="galeria.html">Galería de Fotos</a>                            
+                </div>
+            </div>                
+            <div class="nav-item">
+                <a href="consejos.html" class="nav-regular">Consejos del Dr.Agro</a>
+            </div>
+            <div class="nav-item PlagasOrganismos">
+                <a href="galeria.html" class="nav-regular">Galería de Fotos</a>
+            </div>                                        
+            <div class="nav-item">
+                <a href="contacto.html" class="nav-regular">Contáctenos</a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="dropdown-nav">Administración</a>
+                <div class="nav-item-submenu">
+                    <a href="adminCultivo.html">Descargar Contenido</a>
+                    <a href="elimCultivo.html">Eliminar Contenido</a>
+
+                    <a href="acerca-de.html">Acerca De</a>
+                    <a href="terminos.html">Términos y Condiciones</a>
+                </div>
+            </div> 
         </div>
+
+        <div class="sidebar-decoration"></div>
+
+        <img src="images/dr-agro/LogoCorpoica-sintxt-Blanco.png" style="max-width:90%;margin-left:auto;margin-right:auto">                     
     </div>
+</div>
+</div>
 
-    <div id="content" class="page-content scroll">   
-    
-        <div class="content-controls">
-        	<a href="#" class="deploy-sidebar"></a>
-            <em>CONSEJOS DEL DR.AGRO</em>
+<div id="content" class="page-content">   
+
+    <div class="content-controls">
+       <a href="#" class="deploy-sidebar" onclick="mostrarMenu()"></a>
+       <em>CONSEJOS DEL DR.AGRO</em>
+   </div>
+
+   <div class="content">
+
+
+    <div class="decoration"></div> 
+
+
+    <div style="padding:10px 10px;background:green">
+        <p class="center-text uppercase tituloSeccion" style:"font-family:Verdana">BIENVENIDO A LOS CONSEJOS DE DR.AGRO</p>
+    </div>	
+    <div class="container no-bottom"style="margin-top:45px">
+        <div class="container">
+            <div class="one-half">
+                <h1><input type="submit" class="buttonWrap button button-green contactSubmitButton"  value="<" data-formId="contactForm" onclick="consejoAnterior()"/></h1>
+            </div>
+            <div class="two-half last-column">
+                <h1><input type="submit" class="buttonWrap button button-green contactSubmitButton"  value=">" data-formId="contactForm" onclick="consejoSiguiente()"/></h1>
+                
+            </div>
         </div>
-         
-        <div class="content">
-			            
-            
-            <div class="decoration"></div> 
 
-            
-            <div style="padding:10px 10px;background:green">
-                        <p class="center-text uppercase tituloSeccion" style:"font-family:Verdana">BIENVENIDO A LOS CONSEJOS DE DR.AGRO</p>
-            </div>
-			
-            
-            <figure style="position:absolute;z-index:1">
-                    <img src="images/dr-agro/dr-agro-icon.png" style="margin-top:0" >
-            </figure>
-            <!--MARCO CONSEJOS DE DR.AGRO-->                    
-            <div class="container marcoConsejosDrAgro">
-                
-                <div id="consejosDrAgro" class="contenedorConsejosDrAgro">                  
-                    <!--AQUI VAN LOS CONSEJOS DE DR.AGRO-->                    
-                </div>
-                
-            </div>
-            <figure style="position:absolute;margin-top:-76px;right:0">
-                    <img src="images/dr-agro/icono-gafas-dr-agro.png" style="width:120px">
-            </figure>
-         	
-         	
-                      
-            <div class="decoration"></div> 
-            <div class="container" style="margin-top:auto">              
-            
-                    <div>                    
-                        <a href="#" class="goup-footer"></a>                    
-                    </div>
-                    <p class="copyright uppercase center-text no-bottom">Corpoica 2014<br> Todos los derechos reservados</p>        
-    		</div>
-		</div> 
-        
-        </div>           
-    </div>  
+    </div>		
+
+    <figure style="position:absolute;z-index:1">
+        <img src="images/dr-agro/dr-agro-icon.png" style="margin-top:0" >
+    </figure>
+
+    <!--MARCO CONSEJOS DE DR.AGRO-->                    
+    <div class="container marcoConsejosDrAgro">
+
+        <div id="consejosDrAgro" class="contenedorConsejosDrAgro">                  
+            <!--AQUI VAN LOS CONSEJOS DE DR.AGRO-->                    
+        </div>
+
+    </div>
+    <figure style="position:absolute;margin-top:-76px;right:0">
+        <img src="images/dr-agro/icono-gafas-dr-agro.png" style="width:120px">
+    </figure>    
+
+    <div class="decoration"></div> 
+    <div class="container" style="margin-top:auto">              
+
+        <div>                    
+            <a href="#" class="goup-footer"></a>                    
+        </div>
+        <p class="copyright uppercase center-text no-bottom">Corpoica 2014<br> Todos los derechos reservados</p>        
+    </div>
+</div> 
+
+</div>           
+</div>  
 </body>
 </html>
+<script>
+    var applaunchCount = window.localStorage.getItem('launchCount');
+    if(!applaunchCount) {
+        abrirAlert('Para acceder a esta sección por primera vez es necesario descargar información de internet, una vez tenga conectividad, por favor reinicie la aplicación')
+       
+        document.location.href="index.html";
+    }    
 
+function mostrarMenu(){
+    $("#sidebar").css("display","block");
+}
+
+function esconderMenu(){
+  //   $('#sidebar').fadeOut('fast', function () {
+  //   $(this).css("display","none");
+  //   $(this).delay(50).fadeOut('slow');
+  // });
+}    
+</script>
 
 
 

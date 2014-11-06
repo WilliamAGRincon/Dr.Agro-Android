@@ -1,203 +1,456 @@
-﻿<!DOCTYPE HTML>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/splash/splash-icon.png">
-    <link rel="apple-touch-startup-image" href="images/splash/splash-screen.png" 			media="screen and (max-device-width: 320px)" />  
-    <link rel="apple-touch-startup-image" href="images/splash/splash-screen@2x.png" 		media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" /> 
-    <link rel="apple-touch-startup-image" sizes="640x1096" href="images/splash/splash-screen@3x.png" />
-    <link rel="apple-touch-startup-image" sizes="1024x748" href="images/splash/splash-screen-ipad-landscape" media="screen and (min-device-width : 481px) and (max-device-width : 1024px) and (orientation : landscape)" />
-    <link rel="apple-touch-startup-image" sizes="768x1004" href="images/splash/splash-screen-ipad-portrait.png" media="screen and (min-device-width : 481px) and (max-device-width : 1024px) and (orientation : portrait)" />
-    <link rel="apple-touch-startup-image" sizes="1536x2008" href="images/splash/splash-screen-ipad-portrait-retina.png"   media="(device-width: 768px)	and (orientation: portrait)	and (-webkit-device-pixel-ratio: 2)"/>
-    <link rel="apple-touch-startup-image" sizes="1496x2048" href="images/splash/splash-screen-ipad-landscape-retina.png"   media="(device-width: 768px)	and (orientation: landscape)	and (-webkit-device-pixel-ratio: 2)"/>
-
-    <link href="styles/style.css"           rel="stylesheet" type="text/css">
-    <link href="styles/framework.css"       rel="stylesheet" type="text/css">
-    <link href="styles/owl.carousel.css"     rel="stylesheet" type="text/css">
-    <link href="styles/owl.theme.css"       rel="stylesheet" type="text/css">
-    <link href="styles/swipebox.css"         rel="stylesheet" type="text/css">
-    <link href="styles/colorbox.css"         rel="stylesheet" type="text/css">
-
-    <script type="text/javascript" src="scripts/jquery.js"></script>
-    <script type="text/javascript" src="scripts/jqueryui.js"></script>
-    <script type="text/javascript" src="scripts/owl.carousel.min.js"></script>
-    <link href="styles/jquery-ui.css"     rel="stylesheet" type="text/css">
-    <link href="styles/jquery-ui.theme.css"     rel="stylesheet" type="text/css">
-    <link href="styles/jquery-ui.structure.css"     rel="stylesheet" type="text/css">
-    <!--<script type="text/javascript" src="scripts/jquery.swipebox.js"></script>-->
-    <script type="text/javascript" src="scripts/colorbox.js"></script>
-    <script type="text/javascript" src="scripts/snap.js"></script>
-    <script type="text/javascript" src="scripts/contact.js"></script>
-    <script type="text/javascript" src="scripts/custom.js"></script>
-    <script type='text/javascript' src='scripts/basic.js'></script>
-    <script type="text/javascript" src="scripts/framework.js"></script>
-    <script type="text/javascript" src="scripts/framework.launcher.js"></script>
-    <script type="text/javascript" src="scripts/menuHeight.js"></script>
-    <script type="text/javascript" src="scripts/jquery-ui.js"></script>
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="scripts/load.js"></script>
-
-    <link href="styles/style.css"     		rel="stylesheet" type="text/css">
-    <link href="styles/framework.css" 		rel="stylesheet" type="text/css">
-    <link href="styles/owl.carousel.css" 	 rel="stylesheet" type="text/css">
-    <link href="styles/owl.theme.css" 		rel="stylesheet" type="text/css">
-    <!--<link href="styles/swipebox.css"		 rel="stylesheet" type="text/css">-->
-    <link href="styles/colorbox.css"		 rel="stylesheet" type="text/css">
-    <style type="text/css">
-    .ui-widget-header{
-        border: 1px solid #27ae60 !important;
-        background-color: #27ae60 !important;
-        background: #27ae60 !important;
-    }
+    <!DOCTYPE HTML>
+    <head>
+        <meta charset="utf-8" />
+        <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 
 
-    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-        color: #FFFFFF !important;  
-    }
-    .ui-dialog .ui-dialog-buttonpane button{
-        background:#27ae60 !important;
-        border: 1px solid #27ae60 !important;
-    }
-    </style>
+        <link href="styles/style.css"           rel="stylesheet" type="text/css">
+        <link href="styles/framework.css"       rel="stylesheet" type="text/css">
+        <link href="styles/owl.carousel.css"     rel="stylesheet" type="text/css">
+        <link href="styles/owl.theme.css"       rel="stylesheet" type="text/css">
+        <link href="styles/swipebox.css"         rel="stylesheet" type="text/css">
+        <link href="styles/colorbox.css"         rel="stylesheet" type="text/css">
 
-</head>
-<body onload="onLoad()">
+        <script type="text/javascript" src="scripts/jquery.js"></script>
+        <script type="text/javascript" src="scripts/jqueryui.js"></script>
+        <script type="text/javascript" src="scripts/owl.carousel.min.js"></script>
+        <link href="styles/jquery-ui.css"     rel="stylesheet" type="text/css">
+        <link href="styles/jquery-ui.theme.css"     rel="stylesheet" type="text/css">
+        <link href="styles/jquery-ui.structure.css"     rel="stylesheet" type="text/css">
+        <!--<script type="text/javascript" src="scripts/jquery.swipebox.js"></script>-->
+        <script type="text/javascript" src="scripts/colorbox.js"></script>
+        <script type="text/javascript" src="scripts/snap.js"></script>
+        <script type="text/javascript" src="scripts/contact.js"></script>
+        <script type="text/javascript" src="scripts/custom.js"></script>
+        <script type='text/javascript' src='scripts/basic.js'></script>
+        <script type="text/javascript" src="scripts/framework.js"></script>
+        <script type="text/javascript" src="scripts/framework.launcher.js"></script>
+        <script type="text/javascript" src="scripts/menuHeight.js"></script>
+        <script type="text/javascript" src="scripts/jquery-ui.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="scripts/load.js"></script>
+        <script type="text/javascript" charset="utf-8">
+        // document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
-    <div id="preloader">
-       <div id="status">
-           <p class="center-text">
-            Cargando Ficha Técnica de Plagas y Enfermedades...            
-        </p>
-    </div>
-</div>
+            //var applaunchCount = window.localStorage.getItem('launchCount');
+            var remoteFiles = [];
+            var networkState = "";
+            var numVersion = 0;
+
+            $(document).ready(function() {
+                var applaunchCount = window.localStorage.getItem('launchCount');
+                
+                if(applaunchCount) {
+                    changeLink();
+                    cargar_version();
+                }
+
+            });
+
+            function downloadUpdate() {
+
+                actualizarVersion();
+
+                networkState = navigator.connection.type;
+
+                if(networkState === "wifi" || networkState === "2g" || networkState === "3g" || networkState === "4g" || networkState === "unknown")
+                {
+                    remoteFiles.push("https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_Productos2.json");
+                    remoteFiles.push("https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_EtapasCicloFenologico2.json");
+                    remoteFiles.push("https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_PartesPlanta2.json");
+                    remoteFiles.push("https://dl.dropboxusercontent.com/s/jkx6w5xslzf9y4y/TATB_OrganismosProdEtaPla.json");
+                    remoteFiles.push("https://dl.dropboxusercontent.com/s/ie1l7f1u7onma9h/TATB_Organismos.json");
+                    remoteFiles.push("https://dl.dropboxusercontent.com/s/j23hllzu1fqwsos/TATB_OrganismosSubSec.json");
+                    remoteFiles.push("https://dl.dropboxusercontent.com/s/7ywy8hjq6hrd78e/TATB_TipsDrAgro.json");
+                    remoteFiles.push("https://dl.dropboxusercontent.com/s/m3v9dgv4u9tk3hz/TATB_ProductosEtapaPlanta.json");
+                    remoteFiles.push("https://dl.dropboxusercontent.com/s/ieenjtoopot4vhj/TATB_ProductosEtapa.json");
+                    remoteFiles.push("https://dl.dropboxusercontent.com/s/hukv30jx4p0nyxh/TATB_Fotos.json");
+                    remoteFiles.push("https://dl.dropboxusercontent.com/s/ipci8cuofvlylk7/TATB_ProductoOrganismoFoto.json");
+
+                    setTimeout(function() {
+                        downloadFiles();
+                    }, 300);
+
+                }
+                else
+                {
+                    abrirAlert("Para descargar la actualización debe tener conexión a internet");
+                }
+            }
+
+            function downloadFiles() {
+                $("#loading").text("Descargando información...");
+                $("#status").fadeIn();
+                $("#preloader").fadeIn();
+
+                downloadArchieves();
+            }
+
+            function downloadArchieves() {
+
+                if (remoteFiles.length == 0) {
+                    $("#status").fadeOut();
+                    $("#preloader").fadeOut();
+                    
+                    window.localStorage.setItem('launchCount', 1);
+                    
+                    abrirConfirm("Descarga de informacíon exitosa!!");
+
+                    return;
+                }
+                
+                var remoteFile = remoteFiles.pop();
+
+                var localFileName = remoteFile.substring(remoteFile.lastIndexOf('/') + 1);
+
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+                    var dirReader = fileSystem.root.createReader();
+                    dirReader.readEntries(function(entries) {
+                        for (var i = 0; i < entries.length; i++) {
+                            if(entries[i].name === "DrAgro")
+                            {
+                                entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
+                                    var localPath = fileSystem.root.toURL() + "/DrAgro/" + localFileName;
+                                    if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
+                                        localPath = localPath.substring(7);
+                                    }
+                                    var ft = new FileTransfer();
+                                    ft.download(remoteFile,
+                                    localPath, function(entry) {
+                                        downloadFiles();
+                                    }, fail);
+                                }, fail);
+                            }
+                        };
+                    }, fail);
+                }, fail);
+
+            }
+
+            function cargar_version() {
+                var db = window.openDatabase("bd_doctoragro", "1.0", "version", 200000);
+                db.transaction(cargar_numero_version, errorCargar_version, function () {
+                    console.log("Consultó la versión")
+                });
+            }
+
+            function cargar_numero_version(tx) {
+                tx.executeSql("SELECT * FROM versiones", [], lista_productos, function (error) {
+                    console.log("Error consultado version: " + error)
+                });
+            }
+
+            function lista_productos(tx, results) {
+                
+                var len = results.rows.length;
+                var version = "https://dl.dropboxusercontent.com/u/75467020/TATB_DRAgroVer.json";
+
+                $.getJSON("" + version + "", function(data) {   
+                    $.each(data, function (i, field) {
+                        if (data[i].VerDrAgro_No > results.rows.item(0).numero) {
+
+                            var windowWidth = $(window).width();
+                            var windowHeight = $(window).height();
+                            var ancho=windowWidth-(windowWidth/10);
+                            $('#content-alert').html('<p>"Hay una nueva actualización disponible!!, desea descargarla ?"</p>');
+                            $("#div-confirm").dialog({
+                                modal: true,
+                                draggable: false,
+                                resizable: false,
+                                title: 'Advertencia',
+                                minWidth:ancho,
+                                my: "center",
+                                at: "center",
+                                of: window,
+                                show: 'blind',
+                                hide: 'blind',
+                                dialogClass: 'prueba',
+                                buttons: {
+                                    "Aceptar": function() {
+                                        $(this).dialog("close");
+                                        numVersion = data[i].VerDrAgro_No;
+                                        downloadUpdate();
+                                    },
+                                    "Cancelar": function() {
+                                        $(this).dialog("close");
+                                        abrirAlert("La actualización estara disponible mas tarde!!");
+                                    }
+                                }
+                            });
+                            
+                            /*var conf = confirm("Hay una nueva actualización disponible!!, desea descargarla ?");
+                            if (conf == true) {
+                                numVersion = data[i].VerDrAgro_No;
+                                downloadUpdate();
+                            } else {
+                                alert("La actualización estara disponible mas tarde!!");
+                            }*/
+
+                        }
+                    });
+                });
+            }
+
+            function actualizarVersion() {
+                var db = window.openDatabase("bd_doctoragro", "1.0", "Guardar Producto", 100000);
+                db.transaction(VersionActualizada, ErrorOperacion, OperacionEfectuada);
+            }
+
+            function VersionActualizada(tx) {
+                tx.executeSql('UPDATE versiones SET numero = "' + numVersion + '" WHERE version_id = 1');
+            }
+
+            // Transaction error callback
+            function ErrorOperacion(err) {
+                console.log(err);
+                abrirAlert("Error procesando la operación: " + err);
+            }
+
+            function OperacionEfectuada() {
+                console.log("Operación efectuada!");
+            }
+
+            function errorCargar_version(err) {
+                console.log(err);
+                abrirAlert("Error consultando listado productos" + err);
+            }
+
+            function fail(error) {
+                console.log(error.code);
+            }
+
+            function mostrarNotificacion(){         
+               $(".notificacionBloqueo").css("display", "block");
+            }
+
+            function abrirAlert(contenido){
+
+                var windowWidth = $(window).width();
+                var windowHeight = $(window).height();
+                var ancho=windowWidth-(windowWidth/10);
+                $('#content-alert').html('<p>'+contenido+'</p>');
+                $("#div-confirm").dialog({
+                    modal: true,
+                    draggable: false,
+                    resizable: false,
+                    title: 'Advertencia',
+                    minWidth:ancho,
+                    my: "center",
+                    at: "center",
+                    of: window,
+                    show: 'blind',
+                    hide: 'blind',
+                    dialogClass: 'prueba',
+                    buttons: {
+                        "Aceptar": function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+
+            }
+
+            function abrirConfirm(contenido){
+
+                var windowWidth = $(window).width();
+                var windowHeight = $(window).height();
+                var ancho=windowWidth-(windowWidth/10);
+                $('#content-alert').html('<p>'+contenido+'</p>');
+                $("#div-confirm").dialog({
+                    modal: true,
+                    draggable: false,
+                    resizable: false,
+                    title: 'Advertencia',
+                    minWidth:ancho,
+                    my: "center",
+                    at: "center",
+                    of: window,
+                    show: 'blind',
+                    hide: 'blind',
+                    dialogClass: 'prueba',
+                    buttons: {
+                        "Aceptar": function() {
+                            $(this).dialog("close");
+                            document.location.href="adminCultivo.html";
+                        }
+                    }
+                });
+
+            }
+
+            function changeLink(){
+                $("#idLink").empty();
+                $("#idLink").append('<a href="acerca.html" class="nav-regular">Acerca de Mí</a>');
+            }
+
+        </script>
+
+        <style type="text/css">
+            
+            html {
+                -ms-touch-action: none;
+            } 
+ 
+            #pinchzoom {
+                position: absolute;
+                background: white;
+                overflow: hidden;
+            }
+            .ui-widget-header{
+                border: 1px solid #27ae60 !important;
+                background-color: #27ae60 !important;
+                background: #27ae60 !important;
+            }
 
 
-<div class="all-elements-adaptado">
-    <div id="sidebar" class="page-sidebar">
-        <div class="page-sidebar-scroll">
-         <div id="contentMenu" class="sidebar-content-background scroll">
-            <div class="sidebar-section">
-                <a href="#" class="sidebar-close"></a>
-                <em>Menu</em>
-            </div>
+            .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+                color: #FFFFFF !important;  
+            }
+            .ui-dialog .ui-dialog-buttonpane button{
+                background:#27ae60 !important;
+                border: 1px solid #27ae60 !important;
+            }
 
-            <a href="#" class="sidebar-logo"></a>   
+            
+        </style>
 
-            <div class="sidebar-navigation">                              
-                <div class="nav-item">
-                    <a href="acerca.html" class="nav-regular">Acerca de Mí</a>
-                </div>
-                <div class="nav-item plagas PlagasOrganismos">
-                    <a href="busqueda.html" class="nav-regular">Plagas y Enfermedades</a>
-                </div>     
-                <div class="nav-item seccionesPlagasOrganismos">
-                    <a href="#" class="dropdown-nav">Plagas y Enfermedades</a>
-                    <div class="nav-item-submenu">
-                        <a href="busqueda.html">Ficha Técnica</a> 
-                        <a href="galeria.html">Galería de Fotos</a>                            
-                    </div>
-                </div>                
-                <div class="nav-item">
-                    <a href="consejos.html" class="nav-regular">Consejos del Dr. Agro</a>
-                </div>
-                <div class="nav-item PlagasOrganismos">
-                    <a href="galeria.html" class="nav-regular">Galería de Fotos</a>
-                </div>                                        
-                <div class="nav-item">
-                    <a href="contacto.html" class="nav-regular">Contacto</a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="dropdown-nav">Administración</a>
-                    <div class="nav-item-submenu">
-                        <a href="adminCultivo.html">Descargar Contenido</a>
-                        <a href="elimCultivo.html">Eliminar Contenido</a>
-                        
-                        <a href="acerca-de.html">Acerca De</a>
-                        <a href="terminos.html">Términos y Condiciones</a>
-                    </div>
-                </div> 
-            </div>
+    </head>
+    <body onload="onLoad()">
 
-            <div class="sidebar-decoration"></div>
-
-            <img src="images/dr-agro/LogoCorpoica-sintxt-Blanco.png" style="max-width:90%;margin-left:auto;margin-right:auto">
-
+        <div id="preloader">
+         <div id="status">
+             <p id="loading" class="center-text">
+                Cargando Ficha Técnica de Plagas y Enfermedades...            
+            </p>
         </div>
     </div>
-</div>
 
-<div id="content" class="page-content scroll">   
 
-    <div class="content-controls">
-        <a href="#" class="deploy-sidebar"></a>                
-        <em style="text-align:center;margin-left:50px">BÚSQUEDA DE FICHAS TÉCNICAS PLAGAS Y ENFERMEDADES</em>
+    <div class="all-elements-adaptado">
+        <div id="sidebar" class="page-sidebar">
+            <div class="page-sidebar-scroll">
+               <div id="contentMenu" class="sidebar-content-background">
+                <div class="sidebar-section">
+                    <a href="#" class="sidebar-close" onclick="esconderMenu()"></a>
+                    <em>Menu</em>
+                </div>
+
+                <div class="sidebar-logo"></div>   
+
+                <div class="sidebar-navigation">                              
+                    <div id="idLink" class="nav-item">
+                        <a href="index.html" class="nav-regular">Acerca de Mí</a>
+                    </div>
+                    <div class="nav-item plagas PlagasOrganismos">
+                        <a href="busqueda.html" class="nav-regular">Plagas y Enfermedades</a>
+                    </div>     
+                    <div class="nav-item seccionesPlagasOrganismos">
+                        <a href="#" class="dropdown-nav" onclick="showScroll()">Plagas y Enfermedades</a>
+                        <div class="nav-item-submenu">
+                            <a href="busqueda.html">Ficha Técnica</a> 
+                            <a href="galeria.html">Galería de Fotos</a>                            
+                        </div>
+                    </div>                
+                    <div class="nav-item">
+                        <a href="consejos.html" class="nav-regular">Consejos del Dr. Agro</a>
+                    </div>
+                    <div class="nav-item PlagasOrganismos">
+                        <a href="galeria.html" class="nav-regular">Galería de Fotos</a>
+                    </div>                                        
+                    <div class="nav-item">
+                        <a href="contacto.html" class="nav-regular">Contáctenos</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#" class="dropdown-nav" onclick="showScroll()">Administración</a>
+                        <div class="nav-item-submenu">
+                            <a href="adminCultivo.html">Descargar Contenido</a>
+                            <a href="elimCultivo.html">Eliminar Contenido</a>
+
+                            <a href="acerca-de.html">Acerca De</a>
+                            <a href="terminos.html">Términos y Condiciones</a>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="sidebar-decoration"></div>
+
+                <img src="images/dr-agro/LogoCorpoica-sintxt-Blanco.png" style="max-width:90%;margin-left:auto;margin-right:auto">
+
+            </div>
+        </div>
     </div>
 
-    <div class="content">
+    <div id="content" class="page-content">   
 
-        <div class="decoration"></div>
+        <div class="content-controls">
+            <a href="#" class="deploy-sidebar" onclick="mostrarMenu()"></a>                
+            <em style="text-align:center;margin-left:50px">BÚSQUEDA DE FICHAS TÉCNICAS DE INSECTOS - PLAGAS Y ENFERMEDADES</em>
+        </div>
 
-        <div class="container no-bottom">
+        <div class="content">       
 
-            <div class="container no-bottom">
-                <h4>Seleccione Criterios de Búsqueda</h4>
-            </div> 
-
-            <div class="container">
-                <div class="toggle-2">
-                    <a href="#" class="deploy-toggle-2">Cultivo Agrícola</a>
-                    <div class="toggle-content">
-                        <div id="producto">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="toggle-2">
-                    <a href="#" class="deploy-toggle-2">Ciclo Fenológico</a>
-                    <div class="toggle-content">
-                        <div id="ciclo">
-                                <!--<a href="#" class="checkbox radio-two radioButton">Brotación</a>
-                                <a href="#" class="checkbox radio-two radioButton">Emergencia</a>
-                                <a href="#" class="checkbox radio-two radioButton">Desarrollo vegetativo</a>
-                                <a href="#" class="checkbox radio-two radioButton">Floración</a>
-                                <a href="#" class="checkbox radio-two radioButton">Maduración</a>
-                                <a href="#" class="checkbox radio-two radioButton">Senescencia</a>-->
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container">
-                    <div class="toggle-2">
-                        <a href="#" class="deploy-toggle-2">Parte Afectada</a>
-                        <div class="toggle-content">
-                            <div id="parte">
-                                <!--<a href="#" class="checkbox radio-two radioButton">Raiz</a>
-                                <a href="#" class="checkbox radio-two radioButton">Tallo</a>
-                                <a href="#" class="checkbox radio-two radioButton">Tubérculos</a>
-                                <a href="#" class="checkbox radio-two radioButton">Flores</a>
-                                <a href="#" class="checkbox radio-two radioButton">Fruto</a>
-                                <a href="#" class="checkbox radio-two radioButton">Hoja</a>-->
+            <div class="container no-bottom">            
+                <div class="filtrosBusqueda">
+                    <div class="decoration"></div>
+                    <div class="container no-bottom">
+                        <h4>Seleccione Criterios de Búsqueda</h4>
+                    </div> 
+                    <div class="container">
+                        <div class="toggle-2">
+                            <a href="#" class="deploy-toggle-2">Cultivo Agrícola</a>
+                            <div class="toggle-content">
+                                <div id="producto">
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="container">
+                        <div class="toggle-2">
+                            <a href="#" class="deploy-toggle-2" style="display:inline-table">Ciclo Fenológico</a>
+                            <a href="#" id="cicloFenImagenAyuda" style="float:right;margin-top:2px;padding:0.5 0.5;display:none">
+                            <img src="images/lists/ayuda_ciclo_fenologico.png" alt="img" style="width:35px" onclick="javascript:abrirImgCiclo()">
+                            </a>
+                            <div class="toggle-content">
+                                <div id="ciclo">
+                                    <!--<a href="#" class="checkbox radio-two radioButton">Brotación</a>
+                                    <a href="#" class="checkbox radio-two radioButton">Emergencia</a>
+                                    <a href="#" class="checkbox radio-two radioButton">Desarrollo vegetativo</a>
+                                    <a href="#" class="checkbox radio-two radioButton">Floración</a>
+                                    <a href="#" class="checkbox radio-two radioButton">Maduración</a>
+                                    <a href="#" class="checkbox radio-two radioButton">Senescencia</a>-->
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="toggle-2">
+                            <a href="#" class="deploy-toggle-2">Parte Afectada</a>
+                            <div class="toggle-content">
+                                <div id="parte">
+                                    <!--<a href="#" class="checkbox radio-two radioButton">Raiz</a>
+                                    <a href="#" class="checkbox radio-two radioButton">Tallo</a>
+                                    <a href="#" class="checkbox radio-two radioButton">Tubérculos</a>
+                                    <a href="#" class="checkbox radio-two radioButton">Flores</a>
+                                    <a href="#" class="checkbox radio-two radioButton">Fruto</a>
+                                    <a href="#" class="checkbox radio-two radioButton">Hoja</a>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>                
+
+                    <div class="decoration"></div>
+
+                    <div class="container no-bottom">
+                        <div class="container">
+                            <input type="submit" class="buttonWrap button button-green contactSubmitButton" id="contactSubmitButton" value="Buscar" data-formId="contactForm" onclick="Lista_Organismos()"/>
+                        </div>
+
+                    </div>
                 </div>
-
-            </div>
-
-            <div class="decoration"></div>
-
-            <div class="container no-bottom">
-                <div class="container">
-                    <input type="submit" class="buttonWrap button button-green contactSubmitButton" id="contactSubmitButton" value="Buscar" data-formId="contactForm" onclick="Lista_Organismos()"/>
-                </div>
-
             </div>
 
             <div class="decoration"></div>
@@ -233,31 +486,36 @@
                     </p>                
                 </div>-->
             </div>
+             
+
             <div id="detalle" class="container no-bottom" style="display:none;">
-                <em id="div_nombre_ppal"></em>
+                
+                <div class="container no-bottom">
+                    <div class="container">
+                        <input type="submit" class="buttonWrap button button-green contactSubmitButton" id="contactSubmitButton" value="Volver al Listado" data-formId="contactForm" onclick="Mostrar_Listado()"/>
+                    </div>
+                </div>
+                <div class="decoration"></div> 
+
+                
+                <div id="div_nombre_ppal"></div>
 
                 <div class="decoration"></div>  
                 <div class="container no-bottom">
                     <div class="portfolio-item-full-width">
+
+                        <img id="img_ppal" class="responsive-image" src="" alt="img" onclick="javascript:abrirModal(this)">
                         
-                            <img id="img_ppal" class="responsive-image" src="" alt="img" onclick="javascript:abrirModal(this)">
-                          
                         <!--<img id="img_ppal" class="responsive-image" src="" alt="img">-->
                     </div>
                 </div>            
 
-                <div class="decoration"></div>
-
+                <!--<div class="decoration"></div>
+ 
                 <div class="container no-bottom">
                     <h2>Ficha Técnica</h2>
-                </div> 
+                </div>--> 
                 <div id="tbl_Ficha_Tecnica" class="container no-bottom">
-
-                </div>
-
-                <div class="decoration"></div>
-
-                <div id="div_nombre_Comun" class="container no-bottom">
 
                 </div>
 
@@ -267,12 +525,58 @@
                 </div>
 
                 <div class="decoration"></div>
+                    <div class="container no-bottom" id="ciclo_vida_P">
+                    <div class="toggle-1">
+                    <a href="#" class="deploy-toggle-1">Parámetros de Identificación</a>
+                    <div class="toggle-content">
+
+                    <div class="portfolio-item-full-width">
+
+                    <!--<img id="img_ciclo" class="responsive-image" src="" alt="" style="width:80%; height=auto" OnError="Error_Cargar()">-->
+                    <img id="img_parametros" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">
+
+                    </div>
+                    <div id="parametros_H"></div>
+                    </div>
+                    </div>
+                    </div>
+                    <br/>
+
+                <div class="decoration"></div>
 
                 <div id="div_caracteristicas_grales" class="container no-bottom">
                     <div class="container no-bottom">
                         <h2>Características Generales</h2>
                     </div> 
-                    <div class="container" id="ppal_tab">
+                    <div class="container" id="Descripcion_p">
+                        <div class="toggle-1">
+                            <a href="#" class="deploy-toggle-1">Descripción</a>
+                            <div class="toggle-content">
+                                <div id="Descripcion_H"></div>
+                                <div class="portfolio-item-full-width">
+
+                                    <!--<img id="img_hospederos" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
+                                    <!--<img id="img_Descripcion" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">-->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" id="Dist_Geo_p">
+                        <div class="toggle-1">
+                            <a href="#" class="deploy-toggle-1">Dist. Geográfica</a>
+                            <div class="toggle-content">
+                                <div id="Dist_Geo_H"></div>
+                                <div class="portfolio-item-full-width">
+
+                                    <!--<img id="img_hospederos" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
+                                    <!--<img id="img_Descripcion" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">-->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   <!-- <div class="container" id="ppal_tab">
                         <div class="tabs">
                             <a href="#" class="tab-but tab-but-1 tab-active">Descripción</a>
                             <a href="#" class="tab-but tab-but-2">Dist. Geográfica</a>    
@@ -287,7 +591,7 @@
                                 el otro tab                 
                             </p>
                         </div>  
-                    </div>     
+                    </div> -->    
                 </div>
 
 
@@ -301,14 +605,14 @@
                         <div class="container" id="Hospederos_p">
                             <div class="toggle-1">
                                 <a href="#" class="deploy-toggle-1">Hospederos Vegetales</a>
-                                <div class="toggle-content">
-                                    <div id="Hospederos_H"></div>
+                                <div class="toggle-content">      
                                     <div class="portfolio-item-full-width">
+
+                                        <!--<img id="img_hospederos" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
+                                        <img id="img_hospederos" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">
                                         
-                                            <!--<img id="img_hospederos" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
-                                            <img id="img_hospederos" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">
-                                                                                       
                                     </div>
+                                    <div id="Hospederos_H"></div>
                                 </div>
                             </div>
                         </div> 
@@ -317,14 +621,13 @@
                             <div class="toggle-1">
                                 <a href="#" class="deploy-toggle-1">Daño</a>
                                 <div class="toggle-content" >
-
-                                    <div id="como_alimenta_H"></div>
                                     <div class="portfolio-item-full-width">
+
+                                        <!--<img id="img_dano" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
+                                        <img id="img_dano" class="responsive-image" src="" alt=""  onclick="javascript:abrirModal(this)">
                                         
-                                            <!--<img id="img_dano" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
-                                            <img id="img_dano" class="responsive-image" src="" alt=""  onclick="javascript:abrirModal(this)">
-                                                                                       
                                     </div>
+                                    <div id="como_alimenta_H"></div>
                                 </div>
                             </div>
                         </div>
@@ -335,13 +638,13 @@
                             <div class="toggle-1">
                                 <a href="#" class="deploy-toggle-1">Diseminación</a>
                                 <div class="toggle-content" >
-                                    <div id="diseminacion_H"></div>
                                     <div class="portfolio-item-full-width">
+
+                                        <!--<img id="img_diseminacion" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
+                                        <img id="img_diseminacion" class="responsive-image" src="" alt=""  onclick="javascript:abrirModal(this)">
                                         
-                                            <!--<img id="img_diseminacion" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
-                                            <img id="img_diseminacion" class="responsive-image" src="" alt=""  onclick="javascript:abrirModal(this)">
-                                                                                       
                                     </div>
+                                    <div id="diseminacion_H"></div>
                                 </div>
                             </div>
                         </div> 
@@ -350,13 +653,14 @@
                             <div class="toggle-1">
                                 <a href="#" class="deploy-toggle-1">Ciclo de Vida</a>
                                 <div class="toggle-content">
-                                    <div id="ciclo_vida_H"></div>
+
                                     <div class="portfolio-item-full-width">
+
+                                        <!--<img id="img_ciclo" class="responsive-image" src="" alt="" style="width:80%; height=auto" OnError="Error_Cargar()">-->
+                                        <img id="img_ciclo" class="responsive-image" src="" alt=""  onclick="javascript:abrirModal(this)">
                                         
-                                            <!--<img id="img_ciclo" class="responsive-image" src="" alt="" style="width:80%; height=auto" OnError="Error_Cargar()">-->
-                                            <img id="img_ciclo" class="responsive-image" src="" alt="" style="width:80%; height=auto" onclick="javascript:abrirModal(this)">
-                                                                                        
                                     </div>
+                                    <div id="ciclo_vida_H"></div>
                                 </div>
                             </div>
                         </div>
@@ -365,13 +669,14 @@
                             <div class="toggle-1">
                                 <a href="#" class="deploy-toggle-1">Comportamiento</a>
                                 <div class="toggle-content">
-                                    <div id="comportamiento_H"></div>
+
                                     <div class="portfolio-item-full-width">
+
+                                        <!--<img id="img_comportamiento" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
+                                        <img id="img_comportamiento" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">
                                         
-                                            <!--<img id="img_comportamiento" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
-                                            <img id="img_comportamiento" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">
-                                                                                       
                                     </div>
+                                    <div id="comportamiento_H"></div>
                                 </div>
                             </div>
                         </div><br />
@@ -379,13 +684,14 @@
                             <div class="toggle-1">
                                 <a href="#" class="deploy-toggle-1">Distribución Espacial</a>
                                 <div class="toggle-content" >
-                                    <div id="distribucion_espacial_H"></div>
+
                                     <div class="portfolio-item-full-width">
+
+                                        <!--<img id="img_distribucion" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
+                                        <img id="img_distribucion" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">
                                         
-                                            <!--<img id="img_distribucion" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
-                                            <img id="img_distribucion" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">
-                                                                                        
                                     </div>
+                                    <div id="distribucion_espacial_H"></div>
                                 </div>
                             </div>
                         </div>
@@ -407,13 +713,14 @@
                             <div class="toggle-1">
                                 <a href="#" class="deploy-toggle-1">Medidas de prevención</a>
                                 <div class="toggle-content">
-                                    <div id="Prevencion_H"></div>
+
                                     <div class="portfolio-item-full-width">
+
+                                        <!--<img id="img_prevencion" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
+                                        <img id="img_prevencion" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">
                                         
-                                            <!--<img id="img_prevencion" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
-                                            <img id="img_prevencion" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">
-                                                                                        
                                     </div>
+                                    <div id="Prevencion_H"></div>
                                 </div>
                             </div>
                         </div> 
@@ -422,17 +729,13 @@
                             <div class="toggle-1">
                                 <a href="#" class="deploy-toggle-1">Métodos de Control</a>
                                 <div class="toggle-content">
-                                    <div id="control_H"></div>
                                     <div class="portfolio-item-full-width">
-                                        
-                                            <!--<img id="img_control" class="responsive-image" src="" alt="" OnError="Error_Cargar()">-->
-                                            <img id="img_control" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">
-                                                                                       
+                                        <img id="img_control" class="responsive-image" src="" alt="" onclick="javascript:abrirModal(this)">
                                     </div>
+                                    <div id="control_H"></div>
                                 </div>
                             </div>
-                        </div><br />
-                        <br/>
+                        </div>
                     </div>         
                 </div>
                 <div class="decoration"></div>
@@ -442,13 +745,9 @@
 
 
                 </div> 
-                <div class="container no-bottom" id="registros_P">
-                    <div class="toggle-1">
-                        <a href="#" class="deploy-toggle-1">Listado de registros nacionales químicos de uso agrícola</a>
-                        <div class="toggle-content" id="registros_H">
-                        </div>
-                    </div>
-                </div><br/>
+                <div class="container no-bottom" id="registros_P" style="margin-bottom:0px">
+                    <div id="registros_H" style="margin-bottom:0px"></div>
+                </div>
                 <div class="decoration"></div>
                 <div class="container no-bottom" id="bibliografia_P">
                     <div class="toggle-1">
@@ -465,19 +764,16 @@
 
                 </div>     
             </div>           
-
-
-
-
-            <div id="basic-modal-content" style="display:none" >
-        
-        <div id="pinchzoom">
-            <div>
-                <!-- <img id="rect" src="monalisa.jpg" width="800" height="800" ondragstart="return false" alt=""/> -->
-                <img id="rect" width="436" height="auto" src="" style="float: none;">
+            <div id="basic-modal-content" style="display:none;margin:0;padding-left:0">
+                <div id="pinchzoom" class="portfolio-item-full-width" style="height:100%; width:98%">                        
+                        <img id="rect" class="responsive-image" style="height:500; width:500" src="">                    
+                </div>
             </div>
-        </div>
-       </div>
+
+            <div id="div-confirm" style="display:none" >
+                <div id="content-alert">
+                </div>
+            </div>
 
             <div class="container">
                 <div>                    
@@ -489,10 +785,57 @@
         
     </div>            
 </div>
-<script src="scripts/hammer.js"></script>
+<script type="text/javascript" src="scripts/iscroll-zoom.js"></script>
+<script>
+    var applaunchCount = window.localStorage.getItem('launchCount');
+    if(!applaunchCount) {
 
-    <script src="plugins/hammer.fakemultitouch.js"></script>
-    <script src="plugins/hammer.showtouches.js"></script>
+        var windowWidth = $(window).width();
+        var windowHeight = $(window).height();
+        var ancho=windowWidth-(windowWidth/10);
+        $('#content-alert').html('<p>Para acceder a esta sección por primera vez es necesario descargar información de internet, una vez tenga conectividad, por favor reinicie la aplicación.</p>');
+        $("#div-confirm").dialog({
+            modal: true,
+            draggable: false,
+            resizable: false,
+            title: 'Advertencia',
+            minWidth:ancho,
+    //position: ['center', 'top'],
+    my: "center",
+    at: "center",
+    of: window,
+    show: 'blind',
+    hide: 'blind',
+    dialogClass: 'prueba',
+    buttons: {
+        "Aceptar": function() {
+            $(this).dialog("close");
+        }
+    }
+});
+
+        
+
+        document.location.href="index.html";
+    }     
+
+function mostrar(){
+    $("#sidebar").css("display","block");
+    $('contentMenu').removeClass("scroll");   
+  
+}
+
+function esconderMenu(){    
+    // $(this).css("display","none");
+    $('contentMenu').removeClass("scroll");   
+    // isMenuVisible();   
+}
+
+function showScroll(){
+  var d = document.getElementById("contentMenu");
+  d.className = d.className + " scroll";  
+}
+</script>
 
 </body>
 </html>

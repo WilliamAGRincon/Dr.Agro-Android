@@ -8,6 +8,7 @@
 <link href="styles/framework.css" 		rel="stylesheet" type="text/css">
 <link href="styles/swipebox.css"		 rel="stylesheet" type="text/css">
 <link href="styles/colorbox.css"		 rel="stylesheet" type="text/css">
+<link href="styles/jquery-ui.css"     rel="stylesheet" type="text/css">
 
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/jqueryui.js"></script>
@@ -20,10 +21,48 @@
 <script type="text/javascript" src="scripts/framework.js"></script>
 <script type="text/javascript" src="scripts/framework.launcher.js"></script>
 <script type="text/javascript" src="scripts/menuHeight.js"></script>
+<script type="text/javascript" src="scripts/jquery-ui.js"></script>
 <script type="text/javascript" src="scripts/eliminar_cultivos.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
-</head>
+<script type="text/javascript">
+        
+    $(document).ready(function() {
+        var applaunchCount = window.localStorage.getItem('launchCount');
+        
+        if(applaunchCount) {
+            changeLink();
+        }
 
+    });
+
+    function changeLink(){
+        $("#idLink").empty();
+        $("#idLink").append('<a href="acerca.html" class="nav-regular">Acerca de Mí</a>');
+    }
+
+</script>
+
+</head>
+<style type="text/css">
+        .ui-widget-header{
+            border: 1px solid #27ae60 !important;
+            background-color: #27ae60 !important;
+            background: #27ae60 !important;
+        }
+
+
+        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+            color: #FFFFFF !important;  
+        }
+        .ui-dialog .ui-dialog-buttonpane button{
+            background:#27ae60 !important;
+            border: 1px solid #27ae60 !important;
+        }
+
+        #sidebar{
+            display: none;
+        }
+    </style>
 
 <body onload="cargar_Productos()">
 
@@ -39,23 +78,23 @@
 <div class="all-elements-adaptado">
     <div id="sidebar" class="page-sidebar">
         <div class="page-sidebar-scroll">
-			<div id="contentMenu" class="sidebar-content-background scroll">
+			<div id="contentMenu" class="sidebar-content-background">
                 <div class="sidebar-section">
-                    <a href="#" class="sidebar-close"></a>
+                    <a href="#" class="sidebar-close" onclick="esconderMenu()"></a>
                     <em>Menu</em>
                 </div>
                 
                 <div class="sidebar-logo"></div>   
                                 
                 <div class="sidebar-navigation">                              
-                    <div class="nav-item">
-                        <a href="acerca.html" class="nav-regular">Acerca de Mí</a>
+                    <div id="idLink" class="nav-item">
+                        <a href="index.html" class="nav-regular">Acerca de Mí</a>
                     </div>
                     <div class="nav-item plagas PlagasOrganismos">
                         <a href="busqueda.html" class="nav-regular">Plagas y Enfermedades</a>
                     </div>     
                     <div class="nav-item seccionesPlagasOrganismos">
-                        <a href="#" class="dropdown-nav">Plagas y Enfermedades</a>
+                        <a href="#" class="dropdown-nav" onclick="showScroll()">Plagas y Enfermedades</a>
                         <div class="nav-item-submenu">
                             <a href="busqueda.html">Ficha Técnica</a> 
                             <a href="galeria.html">Galería de Fotos</a>                            
@@ -68,10 +107,10 @@
                         <a href="galeria.html" class="nav-regular">Galería de Fotos</a>
                     </div>                                        
                     <div class="nav-item">
-                        <a href="contacto.html" class="nav-regular">Contacto</a>
+                        <a href="contacto.html" class="nav-regular">Contáctenos</a>
                     </div>
                     <div class="nav-item">
-                        <a href="#" class="dropdown-nav">Administración</a>
+                        <a href="#" class="dropdown-nav" onclick="showScroll()">Administración</a>
                         <div class="nav-item-submenu">
                             <a href="adminCultivo.html">Descargar Contenido</a>
                             <a href="elimCultivo.html">Eliminar Contenido</a>
@@ -90,10 +129,10 @@
         </div>
     </div>
 
-    <div id="content" class="page-content scroll">   
+    <div id="content" class="page-content">   
     
         <div class="content-controls">
-        	<a href="#" class="deploy-sidebar"></a>
+        	<a href="#" class="deploy-sidebar" onclick="mostrarMenu()"></a>
             <em>ADMINISTRACIÓN DE CULTIVOS</em>
         </div>
          
@@ -107,9 +146,8 @@
             
             <div class="container no-bottom">                
                     <p class="quote-item">
-                        <img src="images/dr-agro/dr-agro-icon2.png" alt="img">
-                        <!--<strong>Light weight</strong><br><br>-->
-                        Hola, en esta sección podrás eliminar la información de cultivos que hayas descargado.
+                        <img src="images/dr-agro/dr-agro-icon2.png" alt="img">                       
+                        Hola, en esta sección podrá eliminar la información de cultivos que haya descargado.
                     </p>                
             </div>
             
@@ -117,7 +155,7 @@
 
         	
                 <div class="container no-bottom">
-                	<h4>Selecciona el cultivo a eliminar!</h4>
+                	<h4>¡Seleccione el cultivo a eliminar!</h4>
                 </div> 
                 <div class="container half-bottom">
                     <div id="producto" class="one-half">
@@ -141,6 +179,10 @@
                 </div>
                 <p class="copyright uppercase center-text no-bottom">Corpoica 2014<br> Todos los derechos reservados</p>        
 			</div>
+            <div id="div-confirm" style="display:none" >
+                    <div id="content-alert">
+                    </div>
+            </div>
 		</div> 
         
         </div>           
@@ -149,6 +191,34 @@
 
 </body>
 </html>
+<script>
+    var applaunchCount = window.localStorage.getItem('launchCount');
+    if(!applaunchCount) {
+        abrirAlert('Para acceder a esta sección por primera vez es necesario descargar información de internet, una vez tenga conectividad, por favor reinicie la aplicación.')
+        /*alert('Para acceder a esta sección por primera vez es necesario descargar información de internet, una vez tenga conectividad, por favor reinicie la aplicación');*/
+
+        document.location.href="index.html";
+    }  
+
+function mostrar(){
+    $("#sidebar").css("display","block");
+    $('contentMenu').removeClass("scroll");   
+  
+}
+
+function esconderMenu(){    
+    // $(this).css("display","none");
+    $('contentMenu').removeClass("scroll");   
+    // isMenuVisible();   
+}
+
+function showScroll(){
+  var d = document.getElementById("contentMenu");
+  d.className = d.className + " scroll";
+  
+}
+      
+</script>
 
 
 

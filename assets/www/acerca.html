@@ -1,158 +1,185 @@
 <!DOCTYPE HTML>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
 
-<link href="styles/style.css"           rel="stylesheet" type="text/css">
-<link href="styles/framework.css"       rel="stylesheet" type="text/css">
-<link href="styles/swipebox.css"         rel="stylesheet" type="text/css">
-<link href="styles/colorbox.css"         rel="stylesheet" type="text/css">
 
-<script type="text/javascript" src="scripts/jquery.js"></script>
-<script type="text/javascript" src="scripts/jqueryui.js"></script>
-<script type="text/javascript" src="scripts/owl.carousel.min.js"></script>
-<script type="text/javascript" src="scripts/jquery.swipebox.js"></script>
-<script type="text/javascript" src="scripts/colorbox.js"></script>
-<script type="text/javascript" src="scripts/snap.js"></script>
-<script type="text/javascript" src="scripts/contact.js"></script>
-<script type="text/javascript" src="scripts/custom.js"></script>
-<script type="text/javascript" src="scripts/framework.js"></script>
-<script type="text/javascript" src="scripts/framework.launcher.js"></script>
-<script type="text/javascript" src="scripts/descargar_archivos.js"></script>
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="scripts/menuHeight.js"></script>
-<script type="text/javascript">
+    <link href="styles/style.css"           rel="stylesheet" type="text/css">
+    <link href="styles/framework.css"       rel="stylesheet" type="text/css">
+    <link href="styles/swipebox.css"         rel="stylesheet" type="text/css">
+    <link href="styles/colorbox.css"         rel="stylesheet" type="text/css">
+    <link href="styles/jquery-ui.css"     rel="stylesheet" type="text/css">
 
-    $(document).ready(function() {
-        cargar_version();
-    });
-    
-    function cargar_version() {
-        var db = window.openDatabase("bd_doctoragro", "1.0", "version", 200000);
-        db.transaction(cargar_numero_version, errorCargar_version, function () {
-            console.log("Consultó la versión")
-        });
-    }
 
-    function cargar_numero_version(tx) {
-        tx.executeSql("SELECT * FROM versiones", [], crear_lista_productos, function (error) {
-            console.log("Error consultado version: " + error)
-        });
-    }
 
-    function crear_lista_productos(tx, results) {
+    <script type="text/javascript" src="scripts/jquery.js"></script>    
+    <script type="text/javascript" src="scripts/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.swipebox.js"></script>
+    <script type="text/javascript" src="scripts/colorbox.js"></script>
+    <script type="text/javascript" src="scripts/snap.js"></script>
+    <script type="text/javascript" src="scripts/contact.js"></script>
+    <script type="text/javascript" src="scripts/custom.js"></script>
+    <script type="text/javascript" src="scripts/framework.js"></script>
+    <script type="text/javascript" src="scripts/framework.launcher.js"></script>
+    <script type="text/javascript" src="scripts/bd.js"></script>
+    <script type="text/javascript" src="scripts/jquery-ui.js"></script> 
+    <script type="text/javascript" src="scripts/menuHeight.js"></script>
+    <script type="text/javascript">
         
-        var len = results.rows.length;
-        var version = "https://dl.dropboxusercontent.com/u/75467020/TATB_DRAgroVer.json";
+        $(document).ready(function() {
+            var applaunchCount = window.localStorage.getItem('launchCount');
+            
+            if(applaunchCount) {
+                changeLink();
+            }
 
-        $.getJSON("" + version + "", function(data) {   
-            $.each(data, function (i, field) {
-                
-                /*alert(data[i].VerDrAgro_No);
-                alert(results.rows.item(0).numero);*/
-                
-                if (data[i].VerDrAgro_No > results.rows.item(0).numero) {
-                    //alert("descarga");
-                    var conf = confirm("Hay una nueva actualización disponible!!, desea descargarla ?");
-                    if (conf == true) {
-                        init();
-                    } else {
-                        alert("La actualización estara disponible mas tarde!!");
-                    }
-                                    
-                }
-                else {
-                    //alert("No descarga");
-                }
-
-            });
         });
-    }
 
-    function errorCargar_version(err) {
-        console.log(err);
-        alert("Error consultando listado productos" + err);
-    }
+        function changeLink(){
+            $("#idLink").empty();
+            $("#idLink").append('<a href="acerca.html" class="nav-regular">Acerca de Mí</a>');
+        }
 
-</script>
+    </script>
+
+    <style type="text/css">
+        ui-widget-header{
+                border: 1px solid #27ae60 !important;
+                background-color: #27ae60 !important;
+                background: #27ae60 !important;
+            }
+
+
+            .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+                color: #FFFFFF !important;  
+            }
+            .ui-dialog .ui-dialog-buttonpane button{
+                background:#27ae60 !important;
+                border: 1px solid #27ae60 !important;
+            }
+    </style>
 
 </head>
 <body>
-
-<div id="preloader">
-    <div id="status">
-        <p class="center-text">
-            Cargando Acerca de Mí...            
-        </p>
+    <div id="div-confirm" style="display:none" >
+        <div id="content-alert">
+        </div>
     </div>
-</div>
+
+    <div id="preloader">
+        <div id="status">
+            <p id="loading" class="center-text">
+                Cargando Acerca de Mí...            
+            </p>
+        </div>
+    </div>
 
 
-<div class="all-elements-adaptado">
-    <div id="sidebar" class="page-sidebar">
-        <div class="page-sidebar-scroll">
-            <div id="contentMenu" class="sidebar-content-background scroll">
-                <div class="sidebar-section">
-                    <a href="#" class="sidebar-close"></a>
-                    <em>Menu</em>
+    <div class="all-elements-adaptado">
+        <div id="sidebar" class="page-sidebar">
+            <div class="page-sidebar-scroll">
+                <div id="contentMenu" class="sidebar-content-background scroll">
+                    <div class="sidebar-section">
+                        <a href="#" class="sidebar-close" onclick="esconderMenu()"></a>
+                        <em>Menu</em>
+                    </div>
+
+
+                    <div href="#" class="sidebar-logo"></div>                             
+
+                    <div class="big-notification green-notification notificacionBloqueo tap-dismiss-notification" style="display:none">
+                        <h4 class="uppercase">Notificación</h4>
+                        <a href="#" class="close-big-notification UPPERCASE">x</a>
+                        <p>Para acceder a esta sección por primera vez es necesario descargar información de internet, una vez tenga conectividad, por favor reinicie la aplicación</p>
+                    </div>
+
+                    <div class="sidebar-navigation">                              
+
+                <div id="idLink" class="nav-item">
+                    <a href="acerca.html" class="nav-regular">Acerca de Mí</a>
                 </div>
-                      
-                
-                <div href="#" class="sidebar-logo"></div>                             
-                     
-                                
-                <div class="sidebar-navigation">                              
-                     
-                    <div class="nav-item">
-                        <a href="acerca.html" class="nav-regular">Acerca de Mí</a>
+                <div class="nav-item plagas PlagasOrganismos">
+                    <a href="busqueda.html" class="nav-regular">Plagas y Enfermedades</a>
+                </div>     
+                <div class="nav-item seccionesPlagasOrganismos">
+                    <a href="#" class="dropdown-nav">Plagas y Enfermedades</a>
+                    <div class="nav-item-submenu">
+                        <a href="busqueda.html">Ficha Técnica</a> 
+                        <a href="galeria.html">Galería de Fotos</a>                            
                     </div>
-                    <div class="nav-item plagas PlagasOrganismos">
-                        <a href="busqueda.html" class="nav-regular">Plagas y Enfermedades</a>
-                    </div>     
-                    <div class="nav-item seccionesPlagasOrganismos">
-                        <a href="#" class="dropdown-nav">Plagas y Enfermedades</a>
-                        <div class="nav-item-submenu">
-                            <a href="busqueda.html">Ficha Técnica</a> 
-                            <a href="galeria.html">Galería de Fotos</a>                            
-                        </div>
-                    </div>                
-                    <div class="nav-item">
-                        <a href="consejos.html" class="nav-regular">Consejos del Dr.Agro</a>
-                    </div>
-                    <div class="nav-item PlagasOrganismos">
-                        <a href="galeria.html" class="nav-regular">Galería de Fotos</a>
-                    </div>                                        
-                    <div class="nav-item">
-                        <a href="contacto.html" class="nav-regular">Contacto</a>
-                    </div>
-                    <div class="nav-item">
-                        <a href="#" class="dropdown-nav">Administración</a>
-                        <div class="nav-item-submenu">
-                            <a href="adminCultivo.html">Descargar Contenido</a>
-                            <a href="elimCultivo.html">Eliminar Contenido</a>
-                        
-                            <a href="acerca-de.html">Acerca De</a>
-                            <a href="terminos.html">Términos y Condiciones</a>
-                        </div>
-                    </div> 
+                </div>                
+                <div class="nav-item">
+                    <a href="consejos.html" class="nav-regular">Consejos del Dr.Agro</a>
                 </div>
-                
-                <div class="sidebar-decoration"></div>
-                
-                <img src="images/dr-agro/LogoCorpoica-sintxt-Blanco.png" style="max-width:90%;margin-left:auto;margin-right:auto">
-                
+                <div class="nav-item PlagasOrganismos">
+                    <a href="galeria.html" class="nav-regular">Galería de Fotos</a>
+                </div>                                        
+                <div class="nav-item">
+                    <a href="contacto.html" class="nav-regular">Contáctenos</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="dropdown-nav">Administración</a>
+                    <div class="nav-item-submenu">
+                        <a href="adminCultivo.html">Descargar Contenido</a>
+                        <a href="elimCultivo.html">Eliminar Contenido</a>
+
+                        <a href="acerca-de.html">Acerca De</a>
+                        <a href="terminos.html">Términos y Condiciones</a>
+                    </div>
+                </div> 
+            </div>
+               <!--      <div class="sidebar-navigation">                              
+
+                        <div class="nav-item">
+                            <a href="index.html" class="nav-regular">Acerca de Mí</a>
+                        </div>
+                        <div class="nav-item plagas PlagasOrganismos">
+                            <a href="#" class="nav-regular" onclick="mostrarNotificacion()">Plagas y Enfermedades</a>
+                        </div>     
+                        <div class="nav-item seccionesPlagasOrganismos">
+                            <a href="#" class="dropdown-nav">Plagas y Enfermedades</a>
+                            <div class="nav-item-submenu">
+                                <a href="#" onclick="mostrarNotificacion()">Ficha Técnica</a> 
+                                <a href="#" onclick="mostrarNotificacion()">Galería de Fotos</a>                            
+                            </div>
+                        </div>                
+                        <div class="nav-item">
+                            <a href="#" class="nav-regular" onclick="mostrarNotificacion()">Consejos del Dr.Agro</a>
+                        </div>
+                        <div class="nav-item PlagasOrganismos">
+                            <a href="#" class="nav-regular" onclick="mostrarNotificacion()">Galería de Fotos</a>
+                        </div>                                        
+                        <div class="nav-item">
+                            <a href="contacto.html" class="nav-regular">Contáctenos</a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="dropdown-nav">Administración</a>
+                            <div class="nav-item-submenu">
+                                <a href="#" onclick="mostrarNotificacion()">Descargar Contenido</a>
+                                <a href="#" onclick="mostrarNotificacion()">Eliminar Contenido</a>
+
+                                <a href="acerca-de.html">Acerca De</a>
+                                <a href="terminos.html">Términos y Condiciones</a>
+                            </div>
+                        </div> 
+                    </div> -->
+
+                    <div class="sidebar-decoration"></div>
+
+                    <img src="images/dr-agro/LogoCorpoica-sintxt-Blanco.png" style="max-width:90%;margin-left:auto;margin-right:auto">
+
+                </div>
             </div>
         </div>
-    </div>
-  
-    <div id="content" class="page-content scroll">   
-    
-        <div class="content-controls">
-            <a href="#" class="deploy-sidebar"></a>
-            <em>CONOCE A DR.AGRO!</em>
-        </div>
-         
-        <div class="content">                               
+
+        <div id="content" class="page-content scroll">   
+
+            <div class="content-controls">
+                <a href="#" class="deploy-sidebar" onclick="mostrarMenu()"></a>
+                <em>CONOCE A DR.AGRO!</em>
+            </div>
+
+            <div class="content">                               
                 <div class="decoration"></div>            
 
                 
@@ -160,7 +187,7 @@
                     <div class="portfolio-item-full-width hide">
                         <img class="responsive-image" src="images/dr-agro/dr_agro_about.png" alt="img">
                         
-                        <div class="drAgroProfesion" style="font-family:Verdana">Especialista en Agricultura</div>
+                        <div class="drAgroProfesion" style="font-family:Verdana">CONOZCA A DR. AGRO</div>
                         <div class="decoration"></div>                        
                     </div>
                 </div>
@@ -170,7 +197,7 @@
                         <a href="#" class="deploy-toggle-2"  style="font-family:Verdana">Qué es Dr.Agro?</a>
                         <div class="toggle-content">
                             <p style="text-align:left;font-size:16px;font-family:Verdana">
-                                Dr.Agro es una aplicación móvil dirigida a asistentes técnicos y productores agropecuarios, con el fin de apoyar y orientar la identificación, manejo y control de plagas y enfermedades de los principales cultivos. Esta herramienta permite hacer la consulta de acuerdo a la fenología del cultivo y la parte afectada, a través de un proceso de identificación de sintomatologías.
+                                Dr. Agro es una aplicación móvil dirigida a asistentes técnicos y productores agropecuarios, con el fin de apoyar y orientar la identificación, manejo y control de insectos – plagas y enfermedades de los principales cultivos.
                             </p>
                         </div>
                     </div>
@@ -181,15 +208,15 @@
                         <a href="#" class="deploy-toggle-2" style="font-family:Verdana">Cómo me ayuda Dr.Agro?</a>
                         <div class="toggle-content">
                             <p style="text-align:left;font-size:16px;font-family:Verdana">
-                                Dr.Agro arrojará una ficha técnica cuya información le ayudará a conocer con mayor profundidad el organismo así como a tomar decisiones en tiempo real  mediante el acceso a diversas herramientas multimedia que lo orientaran en las acciones de manejo y control de la plagas y enfermedades en el cultivo. 
+                                Dr. Agro arrojará una ficha técnica cuya información le ayudará a conocer con mayor profundidad el organismo, así mismo podrá tomar decisiones en tiempo real mediante el acceso a diversas herramientas multimedia que lo orientarán en las acciones de manejo y control de insectos - plagas y enfermedades en el cultivo. 
                             </p>
                         </div>
                     </div>
                 </div>             
-                    
+
                 <div class="decoration"></div>
                 
-                <p class="drAgroInvitacionUno">Dr.Agro te invita a compartir tu Conocimiento</p>               
+                <p class="drAgroInvitacionUno">Dr.Agro le invita a compartir su conocimiento</p>                
                 
 
                 <div class="container">         
@@ -199,12 +226,76 @@
                     <p class="copyright uppercase center-text no-bottom">Corpoica 2014<br> Todos los derechos reservados</p>
                 </div>
             </div>          
-    </div>  
-</div>
+        </div>  
+    </div>
 
 </body>
-
 </html>
+<script>
+            function mostrarMenu(){
+                $("#sidebar").css("display","block");
+            }
+
+            function esconderMenu(){
+            // $('#sidebar').fadeOut('fast', function () {
+            //     $(this).css("display","none");
+            //     $(this).delay(50).fadeOut('slow');
+            //   });
+            }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

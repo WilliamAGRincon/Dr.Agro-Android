@@ -43,7 +43,13 @@
       <preference name="InAppBrowserStorageEnabled" value="true" />
       <preference name="disallowOverscroll" value="true" />
     -->
-
+	
+	<!-- <icon src="res/android/36.png" platform="android" width="36" height="36" density="hdpi" />
+	<icon src="res/android/48.png" platform="android" width="48" height="48" density="ldpi" />
+	<icon src="res/android/72.png" platform="android" width="72" height="72" density="mdpi" />
+	<icon src="res/android/96.png" platform="android" width="96" height="96" density="xhdpi" />
+	<icon src="res/android/144.png" platform="android" width="144" height="144" density="xxhdpi" /> -->
+	
     <feature name="App">
       <param name="android-package" value="org.apache.cordova.App"/>
     </feature>

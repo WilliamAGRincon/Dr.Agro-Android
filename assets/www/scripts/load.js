@@ -1,9 +1,12 @@
 var organismos = new Array();
 var relacionesCiclo=new Array();
 var relacionesPlanta=new Array();
+var Id_Producto_Seleccionado;
 var ruta = "";
 var id_Producto;
 var id_EtapaCiclo;
+var listadoIDS=[];
+var listadoCaracteristicas=[];
 function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
@@ -82,20 +85,22 @@ function cargar_EtapasCiclo(idproducto)
     var texto = "";
 
     $.getJSON("" + path + "", function(data) {   
-        for(var j=0;j<relacionesCiclo.length-1;j++){
         $.each(data, function (i, field) {
+        for(var j=0;j<relacionesCiclo.length-1;j++){
                 var temp=relacionesCiclo[j].split(",")
                 if(temp[1]==data[i].EtapaFen_Id&&temp[0]==idproducto)
                 texto += '<h3 style="margin-left:20px;font-family:Verdana;"><input type="radio" onchange="cambioCheckEtapa(this)" name="ciclo" value="' + data[i].EtapaFen_Id + '" />' + data[i].EtapaFen_Desc + '</h3>';
-        }); 
         }     
+        }); 
         $("#ciclo").html(texto);
+        $("#cicloFenImagenAyuda").css("display","inline-table");
     });
 }
 
 function cambioCheck(element){
     if(element.checked){
         var id=element.getAttribute("value")
+        Id_Producto_Seleccionado=id;
         cargar_EtapasCiclo(id)
         id_Producto=id;
         //cargar_PartesPlanta(id);
@@ -103,6 +108,7 @@ function cambioCheck(element){
 }
 
 function cambioCheckEtapa(element){
+    
     if(element.checked){
         var id=element.getAttribute("value")
         //cargar_EtapasCiclo(id)
@@ -165,12 +171,13 @@ function cargar_PartesPlanta(id)
 
 function Lista_Organismos() 
 {
-    var path = ruta + "TATB_OrganismosProdEtapa2.json";
+    var path = ruta + "TATB_OrganismosProdEtaPla.json";
     var texto = "";
 
     var Prod_Id = 0;
     var EtapaFen_Id = 0;
     var PartePlanta_Id = 0;
+
 
     $("input:radio[name=producto]:checked").each(function () {
         Prod_Id = $(this).val();
@@ -191,29 +198,62 @@ function Lista_Organismos()
             }
         });      
         if (organismos !== null) {
-            Cargar_ListaEnfermedades(organismos);
+            //Cargar_ListaEnfermedades(organismos);
+            cargar_caracteristicas_ppales(organismos);
             organismos = new Array();
         }
     });
 }
 
+
+function cargar_caracteristicas_ppales(organismos){
+    listadoCaracteristicas=[];
+    var path = ruta + "TATB_OrganismosProdEtaPla.json";  
+    var Prod_Id = 0;
+    var EtapaFen_Id = 0;
+    var PartePlanta_Id = 0;
+
+    $("input:radio[name=producto]:checked").each(function () {
+        Prod_Id = $(this).val();
+    });
+
+    $("input:radio[name=ciclo]:checked").each(function () {
+        EtapaFen_Id = $(this).val();
+    });
+
+    $("input:radio[name=parte]:checked").each(function () {
+        PartePlanta_Id = $(this).val();
+    }); 
+    $.getJSON("" + path + "", function(data) 
+    {  
+        $.each(data, function (i, field) {
+            if (data[i].Prod_Id == Prod_Id && data[i].EtapaFen_Id == EtapaFen_Id && data[i].PartePlanta_Id == PartePlanta_Id) {
+            listadoCaracteristicas.push(field);
+        }
+        })
+        Cargar_ListaEnfermedades(organismos);
+    })
+}
+
 function Cargar_ListaEnfermedades(organismos) 
 {
-    var path = ruta + "TATB_Organismos2.json";
+    var path = ruta + "TATB_Organismos.json";
     var texto = "";
 
     var lista = $("#listadoEnfermedades");
     lista.empty();
-
+    var caracteristicaPPal="";
     $.getJSON("" + path + "", function(data) {  
-        texto += '<h1 style="font-weight:bold;font-style:Verdana">Listado Organismos</h1>'; 
+        texto += '<h1 style="font-weight:bold;font-style:Verdana">Listado Organismos:</h1>'; 
         $.each(data, function (i, field) {
             for (var j = 0; j < organismos.length; j++) {
                 if (organismos[j] === data[i].Organismo_Id) 
                 {
+                    caracteristicaPPal=sacar_caracteristica_ppal(organismos[j])
                     texto += '<div class="decoration"></div>'+'<div style="padding-bottom:25px !important;">' +
-                                '<h3 style="font-weight:bold;font-style:Verdana;text-align:center">' + data[i].Organismo_Desc + '</h3>' +
-                                '<a onclick="Detalle_Organismo('+data[i].Organismo_Id+')"><div>' +
+                                '<h3 style="font-weight:bold;font-style:Verdana;text-align:center">' + data[i].Organismo_Desc + '</h3>' +                                
+                                '<h3 style="font-weight:bold;font-style:Verdana;text-align:left">' + caracteristicaPPal + '</h3>' +
+                                '<a onclick="Detalle_Organismo('+data[i].Organismo_Id+')" class="confirm"><div>' +
                                     '<img src="'+ruta+data[i].Organismo_Id+"_Organismo_0.jpg"+'" alt="img" style="border-radius:55%;width:150px;margin-left:auto;margin-right:auto">' +
                                     '<h4 style="font-weight:bold;font-style:Verdana;text-align:center">Leer más</h4>' +
                                 '</div></a>' + '<div class="decoration"></div>' +
@@ -221,11 +261,41 @@ function Cargar_ListaEnfermedades(organismos)
                 }
             };
         });        
-        $("#listadoEnfermedades").html(texto);
+        $("#listadoEnfermedades").html(texto);        
         Mostrar_Listado();    
     });
 }
 
+function sacar_caracteristica_ppal(id_org){
+        var Prod_Id = 0;
+    var EtapaFen_Id = 0;
+    var PartePlanta_Id = 0;
+    var band=false;
+    var cont=0;
+
+    $("input:radio[name=producto]:checked").each(function () {
+        Prod_Id = $(this).val();
+    });
+
+    $("input:radio[name=ciclo]:checked").each(function () {
+        EtapaFen_Id = $(this).val();
+    });
+
+    $("input:radio[name=parte]:checked").each(function () {
+        PartePlanta_Id = $(this).val();
+    }); 
+    var salida="";
+    while(!band&&cont<listadoCaracteristicas.length){
+        if (listadoCaracteristicas[cont].Prod_Id == Prod_Id && listadoCaracteristicas[cont].EtapaFen_Id == EtapaFen_Id && listadoCaracteristicas[cont].PartePlanta_Id == PartePlanta_Id&&listadoCaracteristicas[cont].Organismo_Id==id_org) 
+        {
+            salida=listadoCaracteristicas[cont].OrgProEtaPla_Caract;
+            band=true;
+        }else{
+            cont++;
+        }
+    }
+    return salida;
+}
 /*function Cargar_ListaEnfermedades(organismos) 
 {
     var path = ruta + "TATB_Organismos2.json";
@@ -259,20 +329,51 @@ function Cargar_ListaEnfermedades(organismos)
 
 function Detalle_Organismo(id_organismo)
 {
-    var conf = confirm("La información contenida en este aplicativo, es una guía que no remplaza el acompañamiento del Asistente Técnico, dado que su aplicación depende de las condiciones específicas de cada área geográfica y por tanto su uso es responsabilidad del usuario consultante");
+    // $(".filtrosBusqueda").hide();
+    $(".filtrosBusqueda").css("display", "none");
+    var windowWidth = $(window).width();
+    var windowHeight = $(window).height();
+    var ancho=windowWidth-(windowWidth/10);
+    $('#content-alert').html('<p>La información contenida en este aplicativo es una guía que no reemplaza el acompañamiento del asistente técnico, dado que su aplicación depende de las condiciones específicas de cada área geográfica y por tanto su uso está bajo su responsabilidad.</p>');
+    $("#div-confirm").dialog({
+    modal: true,
+    draggable: false,
+    resizable: false,
+    title: 'Advertencia',
+    minWidth:ancho,
+    //position: ['center', 'top'],
+    my: "center",
+   at: "center",
+   of: window,
+    show: 'blind',
+    hide: 'blind',
+    dialogClass: 'prueba',
+    buttons: {
+        "Aceptar": function() {
+            $("#listadoEnfermedades").css("display", "none");
+        cargarSecciones(id_organismo);
+        $("#detalle").css("display", "block");
+        $(this).dialog("close");
+        },
+        "cerrar": function() {
+            $(this).dialog("close");
+        }
+    }
+});
+    /*var conf = confirm("La información contenida en este aplicativo, es una guía que no remplaza el acompañamiento del Asistente Técnico, dado que su aplicación depende de las condiciones específicas de cada área geográfica y por tanto su uso es responsabilidad del usuario consultante");
     if (conf == true) {
         $("#listadoEnfermedades").css("display", "none");
         cargarSecciones(id_organismo);
         $("#detalle").css("display", "block");
     } else {
         
-    }
+    }*/
 }
 
 function cargarSecciones(id_organismo){
     //var id_organismo=1;
     var nombre_cient="";
-    var path = ruta + "TATB_Organismos2.json";
+    var path = ruta + "TATB_Organismos.json";
     var img = "";
     $.getJSON("" + path + "", function(data) {   
         $.each(data, function (i, field) {
@@ -281,10 +382,10 @@ function cargarSecciones(id_organismo){
                 var ficha_tecnica='<table cellspacing="0" class="table">';
 
                 if(field.Organismo_Genero.toUpperCase()!='NULL')
-                    nombre_cient=field.Organismo_Genero
+                    nombre_cient="<em>"+field.Organismo_Genero
 
                 if(field.Organismo_Especie.toUpperCase()!='NULL')
-                    nombre_cient+=field.Organismo_Especie
+                    nombre_cient+=" "+field.Organismo_Especie+"</em>"
 
                 if(field.Organismo_Descriptor.toUpperCase()!='NULL')
                     nombre_cient+=' '+field.Organismo_Descriptor
@@ -317,7 +418,7 @@ function cargarSecciones(id_organismo){
 
                 if(field.Organismo_Comun.toUpperCase()!='NULL')
                     var nombre_comun='<h2>Nombre Común</h2><p>'+ field.Organismo_Comun+'</p>'
-                document.getElementById('div_nombre_ppal').innerHTML='<p>'+ field.Organismo_Comun+'</p>';                
+                document.getElementById('div_nombre_ppal').innerHTML='<h2>'+ field.Organismo_Comun+'</h2>';                
                 //$("#div_nombre_Comun").html(nombre_comun);
 
                 if(field.Organismo_Comun.toUpperCase()!='NULL')
@@ -325,8 +426,8 @@ function cargarSecciones(id_organismo){
                 //$("#div_nombre_Cientifico").html(nombre_Cientifico);
                 
                 document.getElementById('div_nombre_Cientifico').innerHTML=nombre_Cientifico;
-                document.getElementById('div_nombre_Comun').innerHTML=nombre_comun;
-                document.getElementById('tbl_Ficha_Tecnica').innerHTML=ficha_tecnica
+                //document.getElementById('div_nombre_Comun').innerHTML=nombre_comun;
+                //document.getElementById('tbl_Ficha_Tecnica').innerHTML=ficha_tecnica
                 cargarSubSecciones(field.Organismo_Id);
             }
         });
@@ -335,7 +436,7 @@ function cargarSecciones(id_organismo){
 
 function cargarSubSecciones(id_Organismo){
     //alert("hola")
-    var path = ruta + "TATB_OrganismosSubSec2.json";
+    var path = ruta + "TATB_OrganismosSubSec.json";
     var carac_grales="";
     var intro="";
     var geo="";
@@ -439,11 +540,11 @@ function cargarSubSecciones(id_Organismo){
                     }
                     case 10: {
                         if(field.OrgSub_Desc.toUpperCase()!='NULL'){
-                            identificacion_prevencion=field.OrgSub_Desc+'<br />'//<div class="portfolio-item-full-width pinchzoom" style="overflow:hidden"><img class="responsive-image" src="'+ruta+id_Organismo+'_Organismo_10.jpg" alt="" OnError="Error_Cargar()"></div>';
-                            //$('#link_prevencion').attr('href',ruta+id_Organismo+"_Organismo_10.jpg")
-                            //$('#img_prevencion').attr('src',ruta+id_Organismo+"_Organismo_10.jpg")
+                        identificacion_prevencion=field.OrgSub_Desc+'<br />'
+                        $('#img_parametros').attr('src',ruta+id_Organismo+"_Organismo_10.jpg")
+                        $('#img_parametros').attr('OnError','Error_Cargar()')
                         }
-                        //$("#identificacion").html('<p>'+field.OrgSub_Desc+'</p>');
+
                         break;
                     }
                     case 41:
@@ -487,26 +588,29 @@ function cargarSubSecciones(id_Organismo){
             }
         });
             if(intro!="" && geo!=""){
-                document.getElementById('tab1').innerHTML=intro;
-                document.getElementById('tab2').innerHTML=geo;
+
+                document.getElementById('Descripcion_H').innerHTML=intro;
+                document.getElementById('Dist_Geo_H').innerHTML=geo;
                                 // carac_grales='<div class="container no-bottom"><h4>Características Generales</h4></div>'+
                                 // '<div class="container"><div class="tabs"><a href="#" class="tab-but tab-but-1 tab-active">Introduccíon</a>'+
                                 // '<a href="tab2" class="tab-but tab-but-2" >Dist. Geográfica</a> </div><div class="tab-content tab-content-1">'+intro+'</div><div class="tab-content tab-content-2" id="tab2">'+geo+'</div></div>';
                                 // document.getElementById('div_caracteristicas_grales').innerHTML=carac_grales;
                 }else if(intro!=""){
-                    carac_grales='<div class="container no-bottom"><h2>Características Generales</h2></div>'+
-                    '<div class="container"><div class="tabs"><a href="#" class="tab-but tab-but-1 tab-active">Introduccíon</a>'+
-                    '</div><div class="tab-content tab-content-1">'+intro+'</div></div>'
-                    document.getElementById('div_caracteristicas_grales').innerHTML=carac_grales;
+                    //carac_grales='<div class="container no-bottom"><h2>Características Generales</h2></div>'+
+                    //'<div class="container"><div class="tabs"><a href="#" class="tab-but tab-but-1 tab-active">Introduccíon</a>'+
+                    //'</div><div class="tab-content tab-content-1">'+intro+'</div></div>'
+                    document.getElementById('Descripcion_H').innerHTML=intro;
+                    document.getElementById('Dist_Geo_p').innerHTML="";
                     //document.getElementById('secund_tab').style.visibility = "visible";
                     //document.getElementById('ppal_tab').style.visibility = "hidden";
                     //document.getElementById('title-tab').innerHTML='<p>'+Introdución+'</p>';
                     //document.getElementById('tab_secund_1').innerHTML=intro;
                 }else if(geo!=""){
-                    carac_grales='<div class="container no-bottom"><h2>Características Generales</h2></div>'+
-                    '<div class="container"><div class="tabs"><a href="#" class="tab-but tab-but-1 tab-active" >Dist. Geográfica</a>'+
-                    '</div><div class="tab-content tab-content-1">'+geo+'</div></div>'
-                    document.getElementById('div_caracteristicas_grales').innerHTML=carac_grales;
+                    //carac_grales='<div class="container no-bottom"><h2>Características Generales</h2></div>'+
+                    //'<div class="container"><div class="tabs"><a href="#" class="tab-but tab-but-1 tab-active" >Dist. Geográfica</a>'+
+                    //'</div><div class="tab-content tab-content-1">'+geo+'</div></div>'
+                    document.getElementById('Dist_Geo_p').innerHTML=geo;
+                    document.getElementById('Descripcion_H').innerHTML="";
                     //document.getElementById('secund_tab').style.visibility = "visible";
                     //document.getElementById('ppal_tab').style.visibility = "hidden";
                     //document.getElementById('title-tab').innerHTML='<p>'+Dist. Geográfica+'</p>';
@@ -514,7 +618,7 @@ function cargarSubSecciones(id_Organismo){
                 }else{
                     document.getElementById('div_caracteristicas_grales').innerHTML="";
                 }
-                if(Hospederos!=""||como_alimenta!=""||diseminacion!=""||ciclo_vida!=""||comportamiento!=""||distribucion_espacial!=""){
+                if(Hospederos!=""||como_alimenta!=""||diseminacion!=""||ciclo_vida!=""||comportamiento!=""||distribucion_espacial!=""||identificacion_prevencion!=""){
                     //biologia_habitat='<div class="container no-bottom"><h4>Biología y Habitat</h4></div>'
                     
                     if(Hospederos!=""){
@@ -564,16 +668,22 @@ function cargarSubSecciones(id_Organismo){
                 }    
 
                 if(referencias_bibliograficas!=""){
-                    document.getElementById('bibliografia_H').innerHTML=referencias_bibliograficas; 
+                    document.getElementById('bibliografia_H').innerHTML='<p>'+referencias_bibliograficas +'</p>';
                 }else{
                     document.getElementById('bibliografia_P').innerHTML=""; 
                 }
 
                 if(listado_registros!=""){
-                    document.getElementById('registros_H').innerHTML=listado_registros; 
+                    document.getElementById('registros_H').innerHTML='<h2>Listado de registros nacionales químicos de uso agrícola</h2>'+listado_registros+''; 
                 }else{
                     document.getElementById('registros_P').innerHTML=""; 
-                }            
+                } 
+
+                if(identificacion_prevencion!=""){
+                document.getElementById('parametros_H').innerHTML=identificacion_prevencion;
+                }else{
+                document.getElementById('parametros_P').innerHTML="";
+                }           
             });
 }
 
@@ -596,10 +706,19 @@ function asignarZoom(){
 }
 
 
+function abrirImgCiclo(){
+
+    var rutaImagen=ruta+Id_Producto_Seleccionado+"_Ciclo_Fen.jpg";
+    abrirModalCiclo(rutaImagen);
+}
+
+
 function Mostrar_Listado()
 {
     $("#detalle").css("display", "none");
     $("#listadoEnfermedades").css("display", "block");
+    // $(".filtrosBusqueda").show();
+    $(".filtrosBusqueda").css("display", "block");
 }
 
 function crearZoom(element){

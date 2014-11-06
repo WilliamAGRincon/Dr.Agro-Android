@@ -1,11 +1,11 @@
 #gallery{
-	margin-bottom:10px;
+  margin-bottom:10px;
 }
 
 .gallery {  padding: 0; margin: 0; margin-bottom:10px;}
 .gallery{
-	width:100%;
-	margin-top:-10px;
+  width:100%;
+  margin-top:-10px;
 }
 .gallery:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
 .gallery li { list-style: none!important; float: left; width: 33.33333333%; }
@@ -13,19 +13,19 @@
 .gallery li img { border-radius:500px; display: block; width: 100%; height: auto; }
 
 .square-thumb li img{
-	border-radius:0px!important;
+  border-radius:0px!important;
 }
 
 .round-thumb li img{
-	border-radius:500px;
+  border-radius:500px;
 }
 
 @media only screen and (max-width:500px){
-	.gallery{
-		width:106%;
-		margin-top:-10px;
-		margin-left:-3%;
-	}	
+  .gallery{
+    width:106%;
+    margin-top:-10px;
+    margin-left:-3%;
+  } 
 }
 
 
@@ -34,32 +34,32 @@
 and (min-device-width : 768px) 
 and (max-device-width: 1024px)
 and (orientation : landscape) { 
-	.gallery{
-		width:107%!important;	
-		margin-left:-1%!important;
-	}
-	.gallery li { list-style: none!important; float: left; width: 16%; }
+  .gallery{
+    width:107%!important; 
+    margin-left:-1%!important;
+  }
+  .gallery li { list-style: none!important; float: left; width: 16%; }
 }
 
 @media only screen 
 and (min-device-width : 768px) 
 and (max-device-width: 1024px)
 and (orientation : portrait) { 
-	.gallery{
-		width:107%!important;	
-		margin-left:-1%!important;
-	}
-	.gallery li { list-style: none!important; float: left; width: 16%; }
+  .gallery{
+    width:107%!important; 
+    margin-left:-1%!important;
+  }
+  .gallery li { list-style: none!important; float: left; width: 16%; }
 }
 
 /*For Demo Frame*/
 @media only screen 
 and (width : 798px){ 
-	.gallery{
-		width:107%!important;	
-		margin-left:-1%!important;
-	}
-	.gallery li { list-style: none!important; float: left; width: 16%; }
+  .gallery{
+    width:107%!important; 
+    margin-left:-1%!important;
+  }
+  .gallery li { list-style: none!important; float: left; width: 16%; }
 }
 
 .swipebox {
@@ -67,11 +67,7 @@ and (width : 798px){
 }
 
 .swipebox div{
-	overflow:visible;
-}
-
-#purebaslide{
-  overflow: auto !important;
+  overflow:visible!important;
 }
 
 
@@ -124,9 +120,11 @@ and (width : 798px){
 
 #swipebox-slider .slide img {
   display: inline-block;
+  max-height: 100%;
+  max-width: 100%;
   margin: 0;
   padding: 0;
-
+  width: auto;
   height: auto;
   vertical-align: middle;
 }

@@ -8,28 +8,19 @@ function download() {
 
     var networkState = navigator.connection.type;
 
-    if(networkState === "wifi" || networkState === "2g" || networkState === "3g" || networkState === "4g")
+    if(networkState === "wifi" || networkState === "2g" || networkState === "3g" || networkState === "4g" || networkState === "unknown")
     {
-        //var remoteFile = "http://servicedatosabiertoscolombia.cloudapp.net/v1/Corpoica/productos?$format=json";
-        //var remoteFile1 = "http://servicedatosabiertoscolombia.cloudapp.net/v1/Corpoica/organismos?$format=json";
-
-        /*var remoteFile = "https://dl.dropboxusercontent.com/u/75467020/TATB_Productos2.json";
-        var remoteFile1 = "https://dl.dropboxusercontent.com/u/75467020/TATB_EtapasCicloFenologico2.json";
-        var remoteFile2 = "https://dl.dropboxusercontent.com/u/75467020/TATB_PartesPlanta2.json";
-        var remoteFile3 = "https://dl.dropboxusercontent.com/u/75467020/TATB_OrganismosProdEtapa2.json";
-        var remoteFile4 = "https://dl.dropboxusercontent.com/u/75467020/TATB_Organismos2.json";
-        var remoteFile5 = "https://dl.dropboxusercontent.com/u/75467020/TATB_OrganismosSubSec2.json";*/
-
+        
         var remoteFile = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_Productos2.json";
-        var remoteFile1 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_EtapasCicloFenologico2.json";
-        var remoteFile2 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_PartesPlanta2.json";
-        var remoteFile3 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_OrganismosProdEtapa2.json";
-        var remoteFile4 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_Organismos2.json";
-        var remoteFile5 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_OrganismosSubSec2.json";
-        var remoteFile6 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_TipsDrAgro.json";
-        var remoteFile7 = "https://dl.dropboxusercontent.com/u/75467020/TATB_ProductosEtapaPlanta.json";
-        var remoteFile8 = "https://dl.dropboxusercontent.com/u/75467020/TATB_ProductosEtapa.json";
-        var remoteFile9 = "https://dl.dropboxusercontent.com/u/75467020/TATB_Fotos2.json";
+            var remoteFile1 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_EtapasCicloFenologico2.json";
+            var remoteFile2 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_PartesPlanta2.json";
+            var remoteFile3 = "https://dl.dropboxusercontent.com/s/jkx6w5xslzf9y4y/TATB_OrganismosProdEtaPla.json";
+            var remoteFile4 = "https://dl.dropboxusercontent.com/s/ie1l7f1u7onma9h/TATB_Organismos.json";
+            var remoteFile5 = "https://dl.dropboxusercontent.com/s/j23hllzu1fqwsos/TATB_OrganismosSubSec.json";
+            var remoteFile6 = "https://dl.dropboxusercontent.com/s/7ywy8hjq6hrd78e/TATB_TipsDrAgro.json";
+            var remoteFile7 = "https://dl.dropboxusercontent.com/s/m3v9dgv4u9tk3hz/TATB_ProductosEtapaPlanta.json";
+            var remoteFile8 = "https://dl.dropboxusercontent.com/s/ieenjtoopot4vhj/TATB_ProductosEtapa.json";
+            var remoteFile9 = "https://dl.dropboxusercontent.com/s/hukv30jx4p0nyxh/TATB_Fotos.json";
 
         for(var i=0 ; i<10; i++)
         {
@@ -363,7 +354,8 @@ function download() {
     }
     else
     {
-        alert("Debe tener conexión a internet");
+        abrirAlert("Debe tener conexión a internet")
+        //alert("Debe tener conexión a internet");
     }
 }
 
@@ -383,9 +375,39 @@ function fail(error) {
 // Transaction error callback
 function ErrorOperacion(err) {
     console.log(err);
-    alert("Error procesando la operación: " + err);
+    abrirAlert("Error procesando la operación: " + err)
+    //alert("Error procesando la operación: " + err);
 }
 
 function OperacionEfectuada() {
     console.log("Operación efectuada!");
+}
+
+
+function abrirAlert(contenido){
+
+var windowWidth = $(window).width();
+    var windowHeight = $(window).height();
+    var ancho=windowWidth-(windowWidth/10);
+    $('#content-alert').html('<p>'+contenido+'</p>');
+    $("#div-confirm").dialog({
+    modal: true,
+    draggable: false,
+    resizable: false,
+    title: 'Advertencia',
+    minWidth:ancho,
+    //position: ['center', 'top'],
+    my: "center",
+   at: "center",
+   of: window,
+    show: 'blind',
+    hide: 'blind',
+    dialogClass: 'prueba',
+    buttons: {
+        "Aceptar": function() {
+            $(this).dialog("close");
+        }
+    }
+});
+
 }

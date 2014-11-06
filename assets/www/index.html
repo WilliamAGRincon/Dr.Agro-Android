@@ -1,504 +1,383 @@
 <!DOCTYPE HTML>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
 
 
-<link href="styles/style.css"           rel="stylesheet" type="text/css">
-<link href="styles/framework.css"       rel="stylesheet" type="text/css">
-<link href="styles/swipebox.css"         rel="stylesheet" type="text/css">
-<link href="styles/colorbox.css"         rel="stylesheet" type="text/css">
+    <link href="styles/style.css"           rel="stylesheet" type="text/css">
+    <link href="styles/framework.css"       rel="stylesheet" type="text/css">
+    <link href="styles/swipebox.css"         rel="stylesheet" type="text/css">
+    <link href="styles/colorbox.css"         rel="stylesheet" type="text/css">
+    <link href="styles/jquery-ui.css"     rel="stylesheet" type="text/css">
 
-<script type="text/javascript" src="scripts/jquery.js"></script>
-<script type="text/javascript" src="scripts/jqueryui.js"></script>
-<script type="text/javascript" src="scripts/owl.carousel.min.js"></script>
-<script type="text/javascript" src="scripts/jquery.swipebox.js"></script>
-<script type="text/javascript" src="scripts/colorbox.js"></script>
-<script type="text/javascript" src="scripts/snap.js"></script>
-<script type="text/javascript" src="scripts/contact.js"></script>
-<script type="text/javascript" src="scripts/custom.js"></script>
-<script type="text/javascript" src="scripts/framework.js"></script>
-<script type="text/javascript" src="scripts/framework.launcher.js"></script>
-<script type="text/javascript" src="scripts/bd.js"></script>
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="scripts/menuHeight.js"></script>
-<script type="text/javascript" charset="utf-8">
 
-    var applaunchCount = window.localStorage.getItem('launchCount');
 
-    if(applaunchCount) {
-        document.location.href="acerca.html";
-    }
-    else {
-        configurar_db();
-        init();
-    }
+    <script type="text/javascript" src="scripts/jquery.js"></script>    
+    <script type="text/javascript" src="scripts/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.swipebox.js"></script>
+    <script type="text/javascript" src="scripts/colorbox.js"></script>
+    <script type="text/javascript" src="scripts/snap.js"></script>
+    <script type="text/javascript" src="scripts/contact.js"></script>
+    <script type="text/javascript" src="scripts/custom.js"></script>
+    <script type="text/javascript" src="scripts/framework.js"></script>
+    <script type="text/javascript" src="scripts/framework.launcher.js"></script>
+    <script type="text/javascript" src="scripts/bd.js"></script>
+    <script type="text/javascript" src="scripts/jquery-ui.js"></script> 
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/menuHeight.js"></script>
+    <script type="text/javascript" charset="utf-8">
 
-    function init(){
-        document.addEventListener("deviceready", download, true);
-    }
+        var applaunchCount = window.localStorage.getItem('launchCount');
+        var remoteFiles = [];
+        var networkState = "";
 
-    function download() {
+        if(applaunchCount) {
+            document.location.href="busqueda.html";
+        }
+        else {
+            configurar_db();
+            init();
+        }
 
-        var networkState = navigator.connection.type;
+        function init(){
+            document.addEventListener("deviceready", download, true);
+        }
 
-        if(networkState === "wifi" || networkState === "2g" || networkState === "3g" || networkState === "4g")
-        {
-            //var remoteFile = "http://servicedatosabiertoscolombia.cloudapp.net/v1/Corpoica/productos?$format=json";
-            //var remoteFile1 = "http://servicedatosabiertoscolombia.cloudapp.net/v1/Corpoica/organismos?$format=json";
+        function download() {
 
-            /*var remoteFile = "https://dl.dropboxusercontent.com/u/75467020/TATB_Productos2.json";
-            var remoteFile1 = "https://dl.dropboxusercontent.com/u/75467020/TATB_EtapasCicloFenologico2.json";
-            var remoteFile2 = "https://dl.dropboxusercontent.com/u/75467020/TATB_PartesPlanta2.json";
-            var remoteFile3 = "https://dl.dropboxusercontent.com/u/75467020/TATB_OrganismosProdEtapa2.json";
-            var remoteFile4 = "https://dl.dropboxusercontent.com/u/75467020/TATB_Organismos2.json";
-            var remoteFile5 = "https://dl.dropboxusercontent.com/u/75467020/TATB_OrganismosSubSec2.json";*/
+            networkState = navigator.connection.type;
 
-            var remoteFile = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_Productos2.json";
-            var remoteFile1 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_EtapasCicloFenologico2.json";
-            var remoteFile2 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_PartesPlanta2.json";
-            var remoteFile3 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_OrganismosProdEtapa2.json";
-            var remoteFile4 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_Organismos2.json";
-            var remoteFile5 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_OrganismosSubSec2.json";
-            var remoteFile6 = "https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_TipsDrAgro.json";
-            var remoteFile7 = "https://dl.dropboxusercontent.com/u/75467020/TATB_ProductosEtapaPlanta.json";
-            var remoteFile8 = "https://dl.dropboxusercontent.com/u/75467020/TATB_ProductosEtapa.json";
-            var remoteFile9 = "https://dl.dropboxusercontent.com/u/75467020/TATB_Fotos2.json";
-
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onRequestFileSystemSuccess, null); 
-
-            function onRequestFileSystemSuccess(fileSystem) { 
-                    var entry=fileSystem.root; 
-                    entry.getDirectory("DrAgro", {create: true, exclusive: false}, onGetDirectorySuccess, onGetDirectoryFail); 
-            } 
-
-            function onGetDirectorySuccess(dir) { 
-                  console.log("Created dir "+dir.name); 
-            } 
-
-            function onGetDirectoryFail(error) { 
-                 console.log("Error creating directory "+error.code); 
-            }
-
-            for(var i=0 ; i<10; i++)
+            if(networkState === "wifi" || networkState === "2g" || networkState === "3g" || networkState === "4g" || networkState === "unknown")
             {
-                if(i == 0)
-                {
-                    var localFileName = remoteFile.substring(remoteFile.lastIndexOf('/') + 1);
-                    //var localFileName = remoteFile.substring(remoteFile.lastIndexOf('/') + 1, remoteFile.lastIndexOf('?')) + ".json";
-                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+                remoteFiles.push("https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_Productos2.json");
+                remoteFiles.push("https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_EtapasCicloFenologico2.json");
+                remoteFiles.push("https://dl.dropboxusercontent.com/u/105758706/json-Dr.Agro/TATB_PartesPlanta2.json");
+                remoteFiles.push("https://dl.dropboxusercontent.com/s/jkx6w5xslzf9y4y/TATB_OrganismosProdEtaPla.json");
+                remoteFiles.push("https://dl.dropboxusercontent.com/s/ie1l7f1u7onma9h/TATB_Organismos.json");
+                remoteFiles.push("https://dl.dropboxusercontent.com/s/j23hllzu1fqwsos/TATB_OrganismosSubSec.json");
+                remoteFiles.push("https://dl.dropboxusercontent.com/s/7ywy8hjq6hrd78e/TATB_TipsDrAgro.json");
+                remoteFiles.push("https://dl.dropboxusercontent.com/s/m3v9dgv4u9tk3hz/TATB_ProductosEtapaPlanta.json");
+                remoteFiles.push("https://dl.dropboxusercontent.com/s/ieenjtoopot4vhj/TATB_ProductosEtapa.json");
+                remoteFiles.push("https://dl.dropboxusercontent.com/s/hukv30jx4p0nyxh/TATB_Fotos.json");
+                remoteFiles.push("https://dl.dropboxusercontent.com/s/ipci8cuofvlylk7/TATB_ProductoOrganismoFoto.json");
 
-                        var dirReader = fileSystem.root.createReader();
-                        dirReader.readEntries(function(entries) {
-                            for (var i = 0; i < entries.length; i++) {
-                                if(entries[i].name === "DrAgro")
-                                {
-                                    //entries[i].getFile("TATB_Productos2.json", null, gotFileEntry, fail);
-                                    entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
-                                        
-                                        var localPath = fileSystem.root.toURL() + "/DrAgro/" + localFileName;
-                                        if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
-                                            localPath = localPath.substring(7);
-                                        }
-                                        var ft = new FileTransfer();
-                                        ft.download(remoteFile,
-                                        localPath, function(entry) {
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onRequestFileSystemSuccess, null);
 
-                                        }, fail);
-                                        
-                                    }, fail);
+                setTimeout(function() {
 
-                                }
-                            };
-                        }, fail);
+                    var windowWidth = $(window).width();
+                    var windowHeight = $(window).height();
+                    var ancho=windowWidth-(windowWidth/10);
+                    $('#content-alert').html('<p>"Para utilizar esta aplicación correctamente primero debe descargar la información, desea descargarla ?"</p>');
+                    $("#div-confirm").dialog({
+                        modal: true,
+                        draggable: false,
+                        resizable: false,
+                        title: 'Advertencia',
+                        minWidth:ancho,
+                        my: "center",
+                        at: "center",
+                        of: window,
+                        show: 'blind',
+                        hide: 'blind',
+                        dialogClass: 'prueba',
+                        buttons: {
+                            "Aceptar": function() {
+                                $(this).dialog("close");
+                                downloadFiles();
+                            },
+                            "Cancelar": function() {
+                                $(this).dialog("close");
+                                abrirAlert("La aplicación no funcionará correctamente hasta que descargue la información, para hacerlo dirijase al menu opción Acerca de Mí!!");
+                            }
+                        }
+                    });
 
-                    }, fail);
-                }
-                else if(i == 1)
-                {
-                    var localFileName = remoteFile1.substring(remoteFile1.lastIndexOf('/') + 1);
-                    //var localFileName = remoteFile1.substring(remoteFile1.lastIndexOf('/') + 1, remoteFile1.lastIndexOf('?')) + ".json";
-                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+                    /*var conf = confirm("Para utilizar esta aplicación correctamente primero debe descargar la información, desea descargarla ?");
+                    if (conf == true) {
+                        downloadFiles();
+                    } else {
+                        alert("La aplicación no funcionará correctamente hasta que descargue la información, para hacerlo dirijase al menu opción Acerca de Mí!!");
+                    }*/
 
-                        var dirReader = fileSystem.root.createReader();
-                        dirReader.readEntries(function(entries) {
-                            for (var i = 0; i < entries.length; i++) {
-                                if(entries[i].name === "DrAgro")
-                                {
-                                    //entries[i].getFile("TATB_Productos2.json", null, gotFileEntry, fail);
-                                    entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
-                                        
-                                        var localPath = fileSystem.root.toURL() + "/DrAgro/" + localFileName;
-                                        if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
-                                            localPath = localPath.substring(7);
-                                        }
-                                        var ft = new FileTransfer();
-                                        ft.download(remoteFile1,
-                                        localPath, function(entry) {
-
-                                        }, fail);
-                                        
-                                    }, fail);
-
-                                }
-                            };
-                        }, fail);
-
-                    }, fail);
-                }
-                else if(i == 2)
-                {
-                    var localFileName = remoteFile2.substring(remoteFile2.lastIndexOf('/') + 1);
-                    //var localFileName = remoteFile1.substring(remoteFile1.lastIndexOf('/') + 1, remoteFile1.lastIndexOf('?')) + ".json";
-                    //alert(localFileName);
-                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-
-                        var dirReader = fileSystem.root.createReader();
-                        dirReader.readEntries(function(entries) {
-                            for (var i = 0; i < entries.length; i++) {
-                                if(entries[i].name === "DrAgro")
-                                {
-                                    //entries[i].getFile("TATB_Productos2.json", null, gotFileEntry, fail);
-                                    entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
-                                        
-                                        var localPath = fileSystem.root.toURL() + "/DrAgro/" + localFileName;
-                                        if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
-                                            localPath = localPath.substring(7);
-                                        }
-                                        var ft = new FileTransfer();
-                                        ft.download(remoteFile2,
-                                        localPath, function(entry) {
-
-                                        }, fail);
-                                        
-                                    }, fail);
-
-                                }
-                            };
-                        }, fail);
-
-                    }, fail);
-                }
-                else if(i == 3)
-                {
-                    var localFileName = remoteFile3.substring(remoteFile3.lastIndexOf('/') + 1);
-                    //var localFileName = remoteFile1.substring(remoteFile1.lastIndexOf('/') + 1, remoteFile1.lastIndexOf('?')) + ".json";
-                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-
-                        var dirReader = fileSystem.root.createReader();
-                        dirReader.readEntries(function(entries) {
-                            for (var i = 0; i < entries.length; i++) {
-                                if(entries[i].name === "DrAgro")
-                                {
-                                    //entries[i].getFile("TATB_Productos2.json", null, gotFileEntry, fail);
-                                    entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
-                                        
-                                        var localPath = fileSystem.root.toURL() + "/DrAgro/" + localFileName;
-                                        if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
-                                            localPath = localPath.substring(7);
-                                        }
-                                        var ft = new FileTransfer();
-                                        ft.download(remoteFile3,
-                                        localPath, function(entry) {
-
-                                        }, fail);
-                                        
-                                    }, fail);
-
-                                }
-                            };
-                        }, fail);
-
-                    }, fail);
-                }
-                else if(i == 4)
-                {
-                    var localFileName = remoteFile4.substring(remoteFile4.lastIndexOf('/') + 1);
-                    //var localFileName = remoteFile1.substring(remoteFile1.lastIndexOf('/') + 1, remoteFile1.lastIndexOf('?')) + ".json";
-                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-
-                        var dirReader = fileSystem.root.createReader();
-                        dirReader.readEntries(function(entries) {
-                            for (var i = 0; i < entries.length; i++) {
-                                if(entries[i].name === "DrAgro")
-                                {
-                                    //entries[i].getFile("TATB_Productos2.json", null, gotFileEntry, fail);
-                                    entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
-                                        
-                                        var localPath = fileSystem.root.toURL() + "/DrAgro/" + localFileName;
-                                        if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
-                                            localPath = localPath.substring(7);
-                                        }
-                                        var ft = new FileTransfer();
-                                        ft.download(remoteFile4,
-                                        localPath, function(entry) {
-
-                                        }, fail);
-                                        
-                                    }, fail);
-
-                                }
-                            };
-                        }, fail);
-
-                    }, fail);
-                }
-                else if(i == 5)
-                {
-                    var localFileName = remoteFile5.substring(remoteFile5.lastIndexOf('/') + 1);
-                    //var localFileName = remoteFile1.substring(remoteFile1.lastIndexOf('/') + 1, remoteFile1.lastIndexOf('?')) + ".json";
-                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-
-                        var dirReader = fileSystem.root.createReader();
-                        dirReader.readEntries(function(entries) {
-                            for (var i = 0; i < entries.length; i++) {
-                                if(entries[i].name === "DrAgro")
-                                {
-                                    //entries[i].getFile("TATB_Productos2.json", null, gotFileEntry, fail);
-                                    entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
-                                        
-                                        var localPath = fileSystem.root.toURL() + "/DrAgro/" + localFileName;
-                                        if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
-                                            localPath = localPath.substring(7);
-                                        }
-                                        var ft = new FileTransfer();
-                                        ft.download(remoteFile5,
-                                        localPath, function(entry) {
-
-                                        }, fail);
-                                        
-                                    }, fail);
-
-                                }
-                            };
-                        }, fail);
-
-                    }, fail);
-                }
-                else if(i == 6)
-                {
-                    var localFileName = remoteFile6.substring(remoteFile6.lastIndexOf('/') + 1);
-                    //var localFileName = remoteFile1.substring(remoteFile1.lastIndexOf('/') + 1, remoteFile1.lastIndexOf('?')) + ".json";
-                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-
-                        var dirReader = fileSystem.root.createReader();
-                        dirReader.readEntries(function(entries) {
-                            for (var i = 0; i < entries.length; i++) {
-                                if(entries[i].name === "DrAgro")
-                                {
-                                    //entries[i].getFile("TATB_Productos2.json", null, gotFileEntry, fail);
-                                    entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
-                                        
-                                        var localPath = fileSystem.root.toURL() + "/DrAgro/" + localFileName;
-                                        if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
-                                            localPath = localPath.substring(7);
-                                        }
-                                        var ft = new FileTransfer();
-                                        ft.download(remoteFile6,
-                                        localPath, function(entry) {
-
-                                        }, fail);
-                                        
-                                    }, fail);
-
-                                }
-                            };
-                        }, fail);
-
-                    }, fail);
-                }
-                else if(i == 7)
-                {
-                    var localFileName = remoteFile7.substring(remoteFile7.lastIndexOf('/') + 1);
-                    //var localFileName = remoteFile1.substring(remoteFile1.lastIndexOf('/') + 1, remoteFile1.lastIndexOf('?')) + ".json";
-                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-
-                        var dirReader = fileSystem.root.createReader();
-                        dirReader.readEntries(function(entries) {
-                            for (var i = 0; i < entries.length; i++) {
-                                if(entries[i].name === "DrAgro")
-                                {
-                                    //entries[i].getFile("TATB_Productos2.json", null, gotFileEntry, fail);
-                                    entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
-                                        
-                                        var localPath = fileSystem.root.toURL() + "/DrAgro/" + localFileName;
-                                        if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
-                                            localPath = localPath.substring(7);
-                                        }
-                                        var ft = new FileTransfer();
-                                        ft.download(remoteFile7,
-                                        localPath, function(entry) {
-
-                                        }, fail);
-                                        
-                                    }, fail);
-
-                                }
-                            };
-                        }, fail);
-
-                    }, fail);
-                }
-                else if(i == 8)
-                {
-                    var localFileName = remoteFile8.substring(remoteFile8.lastIndexOf('/') + 1);
-                    //var localFileName = remoteFile1.substring(remoteFile1.lastIndexOf('/') + 1, remoteFile1.lastIndexOf('?')) + ".json";
-                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-
-                        var dirReader = fileSystem.root.createReader();
-                        dirReader.readEntries(function(entries) {
-                            for (var i = 0; i < entries.length; i++) {
-                                if(entries[i].name === "DrAgro")
-                                {
-                                    //entries[i].getFile("TATB_Productos2.json", null, gotFileEntry, fail);
-                                    entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
-                                        
-                                        var localPath = fileSystem.root.toURL() + "/DrAgro/" + localFileName;
-                                        if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
-                                            localPath = localPath.substring(7);
-                                        }
-                                        var ft = new FileTransfer();
-                                        ft.download(remoteFile8,
-                                        localPath, function(entry) {
-
-                                        }, fail);
-                                        
-                                    }, fail);
-
-                                }
-                            };
-                        }, fail);
-
-                    }, fail);
-                }
-                else
-                {
-                    var localFileName = remoteFile9.substring(remoteFile9.lastIndexOf('/') + 1);
-                    //var localFileName = remoteFile1.substring(remoteFile1.lastIndexOf('/') + 1, remoteFile1.lastIndexOf('?')) + ".json";
-                    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-
-                        var dirReader = fileSystem.root.createReader();
-                        dirReader.readEntries(function(entries) {
-                            for (var i = 0; i < entries.length; i++) {
-                                if(entries[i].name === "DrAgro")
-                                {
-                                    //entries[i].getFile("TATB_Productos2.json", null, gotFileEntry, fail);
-                                    entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
-                                        
-                                        var localPath = fileSystem.root.toURL() + "/DrAgro/" + localFileName;
-                                        if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
-                                            localPath = localPath.substring(7);
-                                        }
-                                        var ft = new FileTransfer();
-                                        ft.download(remoteFile9,
-                                        localPath, function(entry) {
-
-                                        }, fail);
-                                        
-                                    }, fail);
-
-                                }
-                            };
-                        }, fail);
-
-                    }, fail);
-                }
+                }, 400);
 
             }
+            else
+            {
+                abrirAlert("Debe tener conexión a internet para utilizar correctamente la aplicación");
+            }
+        }
 
-            window.localStorage.setItem('launchCount', 1);
-            document.location.href="adminCultivo.html";
+        function downloadFiles() {
+            $("#loading").text("Descargando información...");
+            $("#status").fadeIn();
+            $("#preloader").fadeIn();
+
+            downloadArchieves();
+        }
+
+        function downloadArchieves() {
+
+            if (remoteFiles.length == 0) {
+                $("#status").fadeOut();
+                $("#preloader").fadeOut();
+                
+                window.localStorage.setItem('launchCount', 1);
+                
+                abrirConfirm("Descarga de informacíon exitosa!!");
+
+                return;
+            }
+            
+            var remoteFile = remoteFiles.pop();
+
+            var localFileName = remoteFile.substring(remoteFile.lastIndexOf('/') + 1);
+
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+                var dirReader = fileSystem.root.createReader();
+                dirReader.readEntries(function(entries) {
+                    for (var i = 0; i < entries.length; i++) {
+                        if(entries[i].name === "DrAgro")
+                        {
+                            entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
+                                var localPath = fileSystem.root.toURL() + "/DrAgro/" + localFileName;
+                                if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
+                                    localPath = localPath.substring(7);
+                                }
+                                var ft = new FileTransfer();
+                                ft.download(remoteFile,
+                                localPath, function(entry) {
+                                    downloadFiles();
+                                }, fail);
+                            }, fail);
+                        }
+                    };
+                }, fail);
+            }, fail);
 
         }
-        else
-        {
-            alert("Debe tener conexión a internet");
+
+        function onRequestFileSystemSuccess(fileSystem) { 
+            var entry=fileSystem.root; 
+            entry.getDirectory("DrAgro", {create: true, exclusive: false}, onGetDirectorySuccess, onGetDirectoryFail); 
+        } 
+
+        function onGetDirectorySuccess(dir) { 
+            console.log("Created dir "+dir.name); 
+        } 
+
+        function onGetDirectoryFail(error) { 
+            console.log("Error creating directory "+error.code); 
         }
+
+        function fail(error) {
+            console.log(error.code);
+        }
+
+        function mostrarNotificacion(){         
+           $(".notificacionBloqueo").css("display", "block");
+        }
+
+        function abrirAlert(contenido){
+
+            var windowWidth = $(window).width();
+            var windowHeight = $(window).height();
+            var ancho=windowWidth-(windowWidth/10);
+            $('#content-alert').html('<p>'+contenido+'</p>');
+            $("#div-confirm").dialog({
+                modal: true,
+                draggable: false,
+                resizable: false,
+                title: 'Advertencia',
+                minWidth:ancho,
+                my: "center",
+                at: "center",
+                of: window,
+                show: 'blind',
+                hide: 'blind',
+                dialogClass: 'prueba',
+                buttons: {
+                    "Aceptar": function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+        }
+
+        function abrirConfirm(contenido){
+
+            var windowWidth = $(window).width();
+            var windowHeight = $(window).height();
+            var ancho=windowWidth-(windowWidth/10);
+            $('#content-alert').html('<p>'+contenido+'</p>');
+            $("#div-confirm").dialog({
+                modal: true,
+                draggable: false,
+                resizable: false,
+                title: 'Advertencia',
+                minWidth:ancho,
+                my: "center",
+                at: "center",
+                of: window,
+                show: 'blind',
+                hide: 'blind',
+                dialogClass: 'prueba',
+                buttons: {
+                    "Aceptar": function() {
+                        $(this).dialog("close");
+                        document.location.href="adminCultivo.html";
+                    }
+                }
+            });
+
+        }
+
+    </script>
+    <style type="text/css">
+        ui-widget-header{
+                border: 1px solid #27ae60 !important;
+                background-color: #27ae60 !important;
+                background: #27ae60 !important;
+            }
+
+
+            .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+                color: #FFFFFF !important;  
+            }
+            .ui-dialog .ui-dialog-buttonpane button{
+                background:#27ae60 !important;
+                border: 1px solid #27ae60 !important;
+            }
+    </style>
+    <style>
+    #sidebar{
+        display: none;
     }
 
-    function fail(error) {
-        console.log(error.code);
-    }
-
-</script>
-
+    </style>
 </head>
 <body>
-
-<div id="preloader">
-    <div id="status">
-        <p class="center-text">
-            Cargando Acerca de Mí...            
-        </p>
+    <div id="div-confirm" style="display:none" >
+        <div id="content-alert">
+        </div>
     </div>
-</div>
+
+    <div id="preloader">
+        <div id="status">
+            <p id="loading" class="center-text">
+                Cargando Acerca de Mí...            
+            </p>
+        </div>
+    </div>
 
 
-<div class="all-elements-adaptado">
-    <div id="sidebar" class="page-sidebar">
-        <div class="page-sidebar-scroll">
-            <div id="contentMenu" class="sidebar-content-background scroll">
-                <div class="sidebar-section">
-                    <a href="#" class="sidebar-close"></a>
-                    <em>Menu</em>
+    <div class="all-elements-adaptado">
+        <div id="sidebar" class="page-sidebar">
+            <div class="page-sidebar-scroll">
+                <div id="contentMenu" class="sidebar-content-background scroll">
+                    <div class="sidebar-section">
+                        <a href="#" class="sidebar-close" onclick="esconderMenu()"></a>
+                        <em>Menu</em>
+                    </div>
+
+
+                    <div href="#" class="sidebar-logo"></div>                             
+
+                    <div class="big-notification green-notification notificacionBloqueo tap-dismiss-notification" style="display:none">
+                        <h4 class="uppercase">Notificación</h4>
+                        <a href="#" class="close-big-notification UPPERCASE">x</a>
+                        <p>Para acceder a esta sección por primera vez es necesario descargar información de internet, una vez tenga conectividad, por favor reinicie la aplicación</p>
+                    </div>
+
+                    <div class="sidebar-navigation">                              
+
+                <div class="nav-item">
+                    <a href="index.html" class="nav-regular">Acerca de Mí</a>
                 </div>
-                      
-                
-                <div href="#" class="sidebar-logo"></div>                             
-                     
-                                
-                <div class="sidebar-navigation">                              
-                     
-                    <div class="nav-item">
-                        <a href="acerca.html" class="nav-regular">Acerca de Mí</a>
+                <div class="nav-item plagas PlagasOrganismos">
+                    <a href="busqueda.html" class="nav-regular">Plagas y Enfermedades</a>
+                </div>     
+                <div class="nav-item seccionesPlagasOrganismos">
+                    <a href="#" class="dropdown-nav">Plagas y Enfermedades</a>
+                    <div class="nav-item-submenu">
+                        <a href="busqueda.html">Ficha Técnica</a> 
+                        <a href="galeria.html">Galería de Fotos</a>                            
                     </div>
-                    <div class="nav-item plagas PlagasOrganismos">
-                        <a href="busqueda.html" class="nav-regular">Plagas y Enfermedades</a>
-                    </div>     
-                    <div class="nav-item seccionesPlagasOrganismos">
-                        <a href="#" class="dropdown-nav">Plagas y Enfermedades</a>
-                        <div class="nav-item-submenu">
-                            <a href="busqueda.html">Ficha Técnica</a> 
-                            <a href="galeria.html">Galería de Fotos</a>                            
-                        </div>
-                    </div>                
-                    <div class="nav-item">
-                        <a href="consejos.html" class="nav-regular">Consejos del Dr.Agro</a>
-                    </div>
-                    <div class="nav-item PlagasOrganismos">
-                        <a href="galeria.html" class="nav-regular">Galería de Fotos</a>
-                    </div>                                        
-                    <div class="nav-item">
-                        <a href="contacto.html" class="nav-regular">Contacto</a>
-                    </div>
-                    <div class="nav-item">
-                        <a href="#" class="dropdown-nav">Administración</a>
-                        <div class="nav-item-submenu">
-                            <a href="adminCultivo.html">Descargar Contenido</a>
-                            <a href="elimCultivo.html">Eliminar Contenido</a>
-                        
-                            <a href="acerca-de.html">Acerca De</a>
-                            <a href="terminos.html">Términos y Condiciones</a>
-                        </div>
-                    </div> 
+                </div>                
+                <div class="nav-item">
+                    <a href="consejos.html" class="nav-regular">Consejos del Dr.Agro</a>
                 </div>
-                
-                <div class="sidebar-decoration"></div>
-                
-                <img src="images/dr-agro/LogoCorpoica-sintxt-Blanco.png" style="max-width:90%;margin-left:auto;margin-right:auto">
-                
+                <div class="nav-item PlagasOrganismos">
+                    <a href="galeria.html" class="nav-regular">Galería de Fotos</a>
+                </div>                                        
+                <div class="nav-item">
+                    <a href="contacto.html" class="nav-regular">Contáctenos</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="dropdown-nav">Administración</a>
+                    <div class="nav-item-submenu">
+                        <a href="adminCultivo.html">Descargar Contenido</a>
+                        <a href="elimCultivo.html">Eliminar Contenido</a>
+
+                        <a href="acerca-de.html">Acerca De</a>
+                        <a href="terminos.html">Términos y Condiciones</a>
+                    </div>
+                </div> 
+            </div>
+               <!--      <div class="sidebar-navigation">                              
+
+                        <div class="nav-item">
+                            <a href="index.html" class="nav-regular">Acerca de Mí</a>
+                        </div>
+                        <div class="nav-item plagas PlagasOrganismos">
+                            <a href="#" class="nav-regular" onclick="mostrarNotificacion()">Plagas y Enfermedades</a>
+                        </div>     
+                        <div class="nav-item seccionesPlagasOrganismos">
+                            <a href="#" class="dropdown-nav">Plagas y Enfermedades</a>
+                            <div class="nav-item-submenu">
+                                <a href="#" onclick="mostrarNotificacion()">Ficha Técnica</a> 
+                                <a href="#" onclick="mostrarNotificacion()">Galería de Fotos</a>                            
+                            </div>
+                        </div>                
+                        <div class="nav-item">
+                            <a href="#" class="nav-regular" onclick="mostrarNotificacion()">Consejos del Dr.Agro</a>
+                        </div>
+                        <div class="nav-item PlagasOrganismos">
+                            <a href="#" class="nav-regular" onclick="mostrarNotificacion()">Galería de Fotos</a>
+                        </div>                                        
+                        <div class="nav-item">
+                            <a href="contacto.html" class="nav-regular">Contáctenos</a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="dropdown-nav">Administración</a>
+                            <div class="nav-item-submenu">
+                                <a href="#" onclick="mostrarNotificacion()">Descargar Contenido</a>
+                                <a href="#" onclick="mostrarNotificacion()">Eliminar Contenido</a>
+
+                                <a href="acerca-de.html">Acerca De</a>
+                                <a href="terminos.html">Términos y Condiciones</a>
+                            </div>
+                        </div> 
+                    </div> -->
+
+                    <div class="sidebar-decoration"></div>
+
+                    <img src="images/dr-agro/LogoCorpoica-sintxt-Blanco.png" style="max-width:90%;margin-left:auto;margin-right:auto">
+
+                </div>
             </div>
         </div>
-    </div>
-  
-    <div id="content" class="page-content scroll">   
-    
-        <div class="content-controls">
-            <a href="#" class="deploy-sidebar"></a>
-            <em>CONOCE A DR.AGRO!</em>
-        </div>
-         
-        <div class="content">                               
+
+        <div id="content" class="page-content scroll">   
+
+            <div class="content-controls">
+                <a href="#" class="deploy-sidebar" onclick="mostrarMenu()"></a>
+                <em>CONOCE A DR.AGRO!</em>
+            </div>
+
+            <div class="content">                               
                 <div class="decoration"></div>            
 
                 
@@ -506,7 +385,7 @@
                     <div class="portfolio-item-full-width hide">
                         <img class="responsive-image" src="images/dr-agro/dr_agro_about.png" alt="img">
                         
-                        <div class="drAgroProfesion" style="font-family:Verdana">Especialista en Agricultura</div>
+                        <div class="drAgroProfesion" style="font-family:Verdana">CONOZCA A DR. AGRO</div>
                         <div class="decoration"></div>                        
                     </div>
                 </div>
@@ -516,7 +395,7 @@
                         <a href="#" class="deploy-toggle-2"  style="font-family:Verdana">Qué es Dr.Agro?</a>
                         <div class="toggle-content">
                             <p style="text-align:left;font-size:16px;font-family:Verdana">
-                                Dr.Agro es una aplicación móvil dirigida a asistentes técnicos y productores agropecuarios, con el fin de apoyar y orientar la identificación, manejo y control de plagas y enfermedades de los principales cultivos. Esta herramienta permite hacer la consulta de acuerdo a la fenología del cultivo y la parte afectada, a través de un proceso de identificación de sintomatologías.
+                                Dr. Agro es una aplicación móvil dirigida a asistentes técnicos y productores agropecuarios, con el fin de apoyar y orientar la identificación, manejo y control de insectos – plagas y enfermedades de los principales cultivos.
                             </p>
                         </div>
                     </div>
@@ -527,15 +406,15 @@
                         <a href="#" class="deploy-toggle-2" style="font-family:Verdana">Cómo me ayuda Dr.Agro?</a>
                         <div class="toggle-content">
                             <p style="text-align:left;font-size:16px;font-family:Verdana">
-                                Dr.Agro arrojará una ficha técnica cuya información le ayudará a conocer con mayor profundidad el organismo así como a tomar decisiones en tiempo real  mediante el acceso a diversas herramientas multimedia que lo orientaran en las acciones de manejo y control de la plagas y enfermedades en el cultivo. 
+                                Dr. Agro arrojará una ficha técnica cuya información le ayudará a conocer con mayor profundidad el organismo, así mismo podrá tomar decisiones en tiempo real mediante el acceso a diversas herramientas multimedia que lo orientarán en las acciones de manejo y control de insectos - plagas y enfermedades en el cultivo. 
                             </p>
                         </div>
                     </div>
                 </div>             
-                    
+
                 <div class="decoration"></div>
                 
-                <p class="drAgroInvitacionUno">Dr.Agro te invita a compartir tu Conocimiento</p>               
+                <p class="drAgroInvitacionUno">Dr.Agro le invita a compartir su conocimiento</p>                
                 
 
                 <div class="container">         
@@ -545,12 +424,23 @@
                     <p class="copyright uppercase center-text no-bottom">Corpoica 2014<br> Todos los derechos reservados</p>
                 </div>
             </div>          
-    </div>  
-</div>
+        </div>  
+    </div>
 
 </body>
 </html>
+<script>
+            function mostrarMenu(){
+                $("#sidebar").css("display","block");
+            }
 
+            function esconderMenu(){
+            $('#sidebar').fadeOut('fast', function () {
+                $(this).css("display","none");
+                $(this).delay(50).fadeOut('slow');
+              });
+            }
+</script>
 
 
 

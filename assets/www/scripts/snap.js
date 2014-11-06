@@ -327,6 +327,7 @@
                         if(settings.addBodyClasses){
                             if((absoluteTranslation)>0){
                                 utils.klass.add(doc.body, 'snapjs-left');
+                                
                                 utils.klass.remove(doc.body, 'snapjs-right');
                             } else if((absoluteTranslation)<0){
                                 utils.klass.add(doc.body, 'snapjs-right');
@@ -372,7 +373,7 @@
                             cache.dragWatchers.last = thePageX;
                         }
                         if (openingLeft) {
-                            // Pulling too far to the right
+                            // Pulling too far to the right                            
                             if (settings.maxPosition < absoluteTranslation) {
                                 diff = (absoluteTranslation - settings.maxPosition) * settings.resistance;
                                 translateTo = whileDragX - diff;
@@ -392,6 +393,9 @@
                             };
                         } else {
                             // Pulling too far to the left
+                            mostrar();
+                            
+                            // isMenuVisible();
                             if (settings.minPosition > absoluteTranslation) {
                                 diff = (absoluteTranslation - settings.minPosition) * settings.resistance;
                                 translateTo = whileDragX - diff;
@@ -425,6 +429,7 @@
                             action.translate.easeTo(0);
                             cache.isDragging = false;
                             cache.startDragX = 0;
+                            $('contentMenu').removeClass("scroll");  
                             return;
                         }
 
@@ -434,11 +439,14 @@
                             if ((cache.simpleStates.halfway || cache.simpleStates.hyperExtending || cache.simpleStates.flick)) {
                                 if (cache.simpleStates.flick && cache.simpleStates.towards === 'left') { // Flicking Closed
                                     action.translate.easeTo(0);
+                                    esconder();
+
                                 } else if (
                                     (cache.simpleStates.flick && cache.simpleStates.towards === 'right') || // Flicking Open OR
                                     (cache.simpleStates.halfway || cache.simpleStates.hyperExtending) // At least halfway open OR hyperextending
                                 ) {
                                     action.translate.easeTo(settings.maxPosition); // Open Left
+
                                 }
                             } else {
                                 action.translate.easeTo(0); // Close Left
@@ -454,6 +462,7 @@
                                     (cache.simpleStates.halfway || cache.simpleStates.hyperExtending) // At least halfway open OR hyperextending
                                 ) {
                                     action.translate.easeTo(settings.minPosition); // Open Right
+                                    
                                 }
                             } else {
                                 action.translate.easeTo(0); // Close Right
@@ -566,3 +575,31 @@
         });
     }
 }).call(this, window, document);
+function esconder(){
+
+    // $(this).css("display","none");
+    $('contentMenu').removeClass("scroll");
+    // alert("NO es visible");
+    // $(this).delay(50).fadeOut('slow');
+  
+}
+
+function mostrar(){
+
+    // $(this).css("display","block");
+    $('contentMenu').removeClass("scroll");
+    // alert("es visible");
+    // $(this).delay(50).fadeIn('fast');
+  
+}
+
+// function isMenuVisible(){
+//             if($('#contentMenu').is(':visible')) {
+//                 alert("es visible");
+//                 // console.log("es visible");
+//             }else{
+//                 alert("no es visible");
+//                 // console.log("no es visible");
+//             }
+            
+//         }

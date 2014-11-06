@@ -1,6 +1,7 @@
 var organismos = new Array();
 var ruta = "";
-
+var incremento = 0;
+var consejos = new Array();
 function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
@@ -45,24 +46,95 @@ function cargar_Consejos()
 {
     var path = ruta + "TATB_TipsDrAgro.json";     
     
-    var texto = "";
-    consejos = new Array(); 
-    cont = 0;
-    numeropp = 1;
+    
+    consejos = new Array();    
+    
+    var conteo = "";    
     $.getJSON("" + path + "", function(data) {   
-        $.each(data, function (i, field) {                       
-           consejos[i] = data[i].DrAgroTips_Desc;             
+        $.each(data, function (i, field) {   
             
-                numeropp++;
-                cont++;           
-            
-        }); 
+            if (data[i].DrAgroTips_Estado === "1") {  
+
+                   consejos.push(data[i].DrAgroTips_Desc);                        
+           }
+       }); 
         
-        var consejosId = Math.floor((Math.random() * consejos.length) + 0);
-        
-        texto += '<p style="font-size:18px;margin-right:15px;margin-left:15px;margin-top:15px">' + data[consejosId].DrAgroTips_Desc + '</p>';
-        
-        $("#consejosDrAgro").html(texto); 
+        consejoSiguiente();
     });
     
+
+}
+
+function consejoSiguiente(){    
+    var texto = "";
+    
+    if(incremento >= consejos.length){
+        incremento = 0;
+        texto += '<p style="font-size:18px;margin-right:15px;margin-left:15px;margin-top:15px">' + consejos[incremento] + '</p>' + '<p style="font-size:18px;text-align:center">Consejo ' + (incremento +1) + ' de ' + (consejos.length) + '</p>';        
+
+            $("#consejosDrAgro").html(texto); 
+            incremento++; 
+            //document.location.href="consejos.html";           
+        }else{            
+            //conteo = consejos.indexOf(data[incremento].DrAgroTips_Desc);       
+
+            texto += '<p style="font-size:18px;margin-right:15px;margin-left:15px;margin-top:15px">' + consejos[incremento] + '</p>' + '<p style="font-size:18px;text-align:center">Consejo ' + (incremento +1) + ' de ' + (consejos.length) + '</p>';        
+
+            $("#consejosDrAgro").html(texto); 
+            incremento++;         
+            
+        }
+}
+
+function consejoAnterior(){    
+    var texto = "";
+    
+   
+    if(incremento >= consejos.length){
+        incremento = 0;
+        texto += '<p style="font-size:18px;margin-right:15px;margin-left:15px;margin-top:15px">' + consejos[incremento] + '</p>' + '<p style="font-size:18px;text-align:center">Consejo ' + (incremento +1) + ' de ' + (consejos.length) + '</p>';        
+
+            $("#consejosDrAgro").html(texto); 
+            incremento++; 
+            //document.location.href="consejos.html";           
+        }else if(incremento < consejos.length && incremento >1){   
+        incremento--;  
+        incremento--; 
+              
+            //conteo = consejos.indexOf(data[incremento].DrAgroTips_Desc);       
+
+            texto += '<p style="font-size:18px;margin-right:15px;margin-left:15px;margin-top:15px">' + consejos[incremento] + '</p>' + '<p style="font-size:18px;text-align:center">Consejo ' + (incremento +1) + ' de ' + (consejos.length) + '</p>';        
+
+            $("#consejosDrAgro").html(texto); 
+                    
+            incremento++;
+        }
+}
+
+function abrirAlert(contenido){
+
+var windowWidth = $(window).width();
+    var windowHeight = $(window).height();
+    var ancho=windowWidth-(windowWidth/10);
+    $('#content-alert').html('<p>'+contenido+'</p>');
+    $("#div-confirm").dialog({
+    modal: true,
+    draggable: false,
+    resizable: false,
+    title: 'Advertencia',
+    minWidth:ancho,
+    //position: ['center', 'top'],
+    my: "center",
+   at: "center",
+   of: window,
+    show: 'blind',
+    hide: 'blind',
+    dialogClass: 'prueba',
+    buttons: {
+        "Aceptar": function() {
+            $(this).dialog("close");
+        }
+    }
+});
+
 }

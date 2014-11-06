@@ -1,6 +1,5 @@
-var organismos = new Array();
-var foto = "";
-var nombre = "";
+var listaImagenes = [];
+var listaProductos = [];
 
 function cargar_Productos() {
     var db = window.openDatabase("bd_doctoragro", "1.0", "Listado Productos", 200000);
@@ -24,11 +23,6 @@ function crear_lista_productos(tx, results) {
     $("#producto").html(texto);
 }
 
-function errorCargar_productos(err) {
-    console.log(err);
-    alert("Error consultando listado productos" + err);
-}
-
 function eliminarProductos() {
     
     $("#loader").text("Eliminando...");
@@ -38,12 +32,6 @@ function eliminarProductos() {
     var db = window.openDatabase("bd_doctoragro", "1.0", "Guardar Producto", 100000);
     db.transaction(EliminarCultivos, ErrorOperacion, OperacionEfectuada);
 
-    setTimeout(function() {
-        
-        Crear_ListaOrganismos(organismos);
-        organismos = new Array();
-        
-    }, 2000);
 }
 
 function EliminarCultivos(tx) {
@@ -54,53 +42,49 @@ function EliminarCultivos(tx) {
         
         tx.executeSql('DELETE FROM productos WHERE producto_id = "' + id + '"');
         
-        Buscar_Organismos(id);
+        listaProductos.push(id);
+
+        if(listaProductos.length == $("input:checkbox[name=producto]:checked").length)
+        {
+            BuscarImagenes();
+        }
     });
 }
 
-//Proceso para guardar los organismos pertenecientes al cultivo
-function Buscar_Organismos(Prod_Id) 
+function BuscarImagenes() 
 {
     var ruta = window.localStorage.getItem("ruta");
-    var path = ruta + "TATB_OrganismosProdEtapa2.json";
+    var path = ruta + "TATB_ProductoOrganismoFoto.json";
 
     $.getJSON("" + path + "", function(data) {   
         $.each(data, function (i, field) {
-            if (data[i].Prod_Id == Prod_Id) {
-                organismos.push(data[i].Organismo_Id);
-            }
-        });
-        organismos = eliminateDuplicates(organismos);
-    });
-}
-
-function Crear_ListaOrganismos(organismos) 
-{
-    var ruta = window.localStorage.getItem("ruta");
-    var path = ruta + "TATB_Organismos2.json";
-
-    $.getJSON("" + path + "", function(data) {   
-        $.each(data, function (i, field) {
-            for (var j = 0; j < organismos.length; j++) {
-                if (organismos[j] == data[i].Organismo_Id) {
-                    foto = data[i].Organismo_Foto;
-                    nombre = foto.substring(foto.lastIndexOf('/')+1);
-                    eliminar(nombre);
-                    eliminarImagesSubseccion(data[i].Organismo_Id)
+            for (var j = 0; j < listaProductos.length; j++) {
+                if(field.Prod_Id == listaProductos[j])
+                {
+                    listaImagenes.push(field.Organismo_Foto);
                 }
-            }
+            };
         });
+        deleteImages();
+    });
+}
+
+function deleteImages() {
+
+    if (listaImagenes.length == 0) {
         $("#status").fadeOut();
         $("#preloader").fadeOut();
-        alert("Eliminación de contenido exitosa!!");
+        
+        listaProductos = [];
+        
+        abrirConfirm("Eliminación de informacíon exitosa!!");
 
-        /*setTimeout(function() {
-            document.location.href="elimCultivo.html";
-        }, 1000);*/ 
-    });
-}
+        return;
+    }
 
-function eliminar(localFileName) {
+    var remoteFile = listaImagenes.pop();
+    
+    var localFileName = remoteFile.substring(remoteFile.lastIndexOf('/')+1);
         
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
 
@@ -109,9 +93,10 @@ function eliminar(localFileName) {
             for (var i = 0; i < entries.length; i++) {
                 if(entries[i].name === "DrAgro")
                 {
-                    //entries[i].getFile("TATB_Productos2.json", null, gotFileEntry, fail);
                     entries[i].getFile(localFileName, {create: true, exclusive: false}, function(fileEntry) {
-                        fileEntry.remove(success, fail);
+                        fileEntry.remove(function(entry) {
+                            deleteImages();
+                        }, fail);
                     }, fail);
                 }
             };
@@ -120,67 +105,11 @@ function eliminar(localFileName) {
     }, fail);
 }
 
-function eliminarImagesSubseccion(id_organismo)
-{
-    var ruta = window.localStorage.getItem("ruta");
-    var path = ruta + "TATB_Fotos2.json";
-
-    $.getJSON("" + path + "", function(data) {   
-        $.each(data, function (i, field) {
-            var imagen=field.Foto_Url;
-            var nombreImg=imagen.substring(imagen.lastIndexOf('/') + 1);
-            var arreglo=nombreImg.split("_");
-            var idBicho=arreglo[0];
-            if(idBicho==id_organismo){
-                
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-
-                    var dirReader = fileSystem.root.createReader();
-                    dirReader.readEntries(function(entries) {
-                        for (var i = 0; i < entries.length; i++) {
-                            if(entries[i].name === "DrAgro")
-                            {
-                                entries[i].getFile(nombreImg, {create: true, exclusive: false}, function(fileEntry) {
-                                    fileEntry.remove(success, fail);
-                                }, fail);
-                            }
-                        };
-                    }, fail);
-
-                }, fail);
-
-            }
-        })
-    });
+function errorCargar_productos(err) {
+    console.log(err);
+    alert("Error consultando listado productos" + err);
 }
 
-//Funcion que permite elmiminar los id de organismos repetidos
-function eliminateDuplicates(arr) {
-  var i,
-      len=arr.length,
-      out=[],
-      obj={};
- 
-  for (i=0;i<len;i++) {
-    obj[arr[i]]=0;
-  }
-  for (i in obj) {
-    out.push(i);
-  }
-  return out;
-}
-
-//Funcion exito
-function success(entry) {
-    console.log("Removal succeeded");
-}
-
-//Funcion Fallo
-function fail(error) {
-    console.log(error.code);
-}
-
-// Transaction error callback
 function ErrorOperacion(err) {
     console.log(err);
     alert("Error procesando la operación: " + err);
@@ -188,4 +117,36 @@ function ErrorOperacion(err) {
 
 function OperacionEfectuada() {
     console.log("Operación efectuada!");
+}
+
+//Funcion Fallo
+function fail(error) {
+    console.log(error.code);
+}
+
+function abrirConfirm(contenido){
+
+    var windowWidth = $(window).width();
+    var windowHeight = $(window).height();
+    var ancho=windowWidth-(windowWidth/10);
+    $('#content-alert').html('<p>'+contenido+'</p>');
+    $("#div-confirm").dialog({
+        modal: true,
+        draggable: false,
+        resizable: false,
+        title: 'Advertencia',
+        minWidth:ancho,
+        my: "center",
+        at: "center",
+        of: window,
+        show: 'blind',
+        hide: 'blind',
+        dialogClass: 'prueba',
+        buttons: {
+            "Aceptar": function() {
+                $(this).dialog("close");
+                document.location.href="elimCultivo.html";
+            }
+        }
+    });
 }

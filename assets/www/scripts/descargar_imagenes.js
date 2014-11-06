@@ -36,7 +36,8 @@ function crear_lista_productos(tx, results) {
 
 function errorCargar_productos(err) {
     console.log(err);
-    alert("Error consultando listado productos" + err);
+    abrirAlert("Error consultando listado productos" + err)
+    //alert("Error consultando listado productos" + err);
 }
 
 function Buscar_Organismos(Prod_Id) 
@@ -57,7 +58,7 @@ function Buscar_Organismos(Prod_Id)
 
 function Crear_ListaOrganismos(organismos) 
 {
-    alert(organismos);
+    //alert(organismos);
     var ruta = window.localStorage.getItem("ruta");
     var path = ruta + "TATB_Organismos2.json";
 
@@ -101,9 +102,38 @@ function eliminateDuplicates(arr) {
 // Transaction error callback
 function errorOperacion(err) {
     console.log(err);
-    alert("Error procesando la operacion: " + err);
+    abrirAlert("Error procesando la operacion: " + err)
+    //alert("Error procesando la operacion: " + err);
 }
 
 function operacionEfectuada() {
     console.log("Operacion efectuada!");
+}
+
+function abrirAlert(contenido){
+
+var windowWidth = $(window).width();
+    var windowHeight = $(window).height();
+    var ancho=windowWidth-(windowWidth/10);
+    $('#content-alert').html('<p>'+contenido+'</p>');
+    $("#div-confirm").dialog({
+    modal: true,
+    draggable: false,
+    resizable: false,
+    title: 'Advertencia',
+    minWidth:ancho,
+    //position: ['center', 'top'],
+    my: "center",
+   at: "center",
+   of: window,
+    show: 'blind',
+    hide: 'blind',
+    dialogClass: 'prueba',
+    buttons: {
+        "Aceptar": function() {
+            $(this).dialog("close");
+        }
+    }
+});
+
 }

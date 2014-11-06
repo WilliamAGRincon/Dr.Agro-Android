@@ -106,15 +106,6 @@ $(document).ready(function(){
 	/////////////////
 	//Image Gallery//
 	/////////////////
-	$(".swipebox").swipebox({
-		useCSS : true, // false will force the use of jQuery for animations
-		hideBarsDelay : 3000 // 0 to always show caption and action bar
-	});
-	
-	$(".swipebox-wide").swipebox({
-		useCSS : true, // false will force the use of jQuery for animations
-		hideBarsDelay : 3000 // 0 to always show caption and action bar
-	});
 	
 	$(".portfolio-item-full-width a").colorbox({
 	 	transition:"fade",

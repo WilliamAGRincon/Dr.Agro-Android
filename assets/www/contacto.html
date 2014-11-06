@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
 
-    <script type="text/javascript" src="scripts/prefixfree.min.js"></script>
     <link href="styles/style.css"           rel="stylesheet" type="text/css">
     <link href="styles/framework.css"       rel="stylesheet" type="text/css">
     <link href="styles/swipebox.css"         rel="stylesheet" type="text/css">
@@ -21,6 +20,23 @@
     <script type="text/javascript" src="scripts/framework.js"></script>
     <script type="text/javascript" src="scripts/framework.launcher.js"></script>
     <script type="text/javascript" src="scripts/menuHeight.js"></script>
+    <script type="text/javascript">
+        
+        $(document).ready(function() {
+            var applaunchCount = window.localStorage.getItem('launchCount');
+            
+            if(applaunchCount) {
+                changeLink();
+            }
+
+        });
+
+        function changeLink(){
+            $("#idLink").empty();
+            $("#idLink").append('<a href="acerca.html" class="nav-regular">Acerca de Mí</a>');
+        }
+
+    </script>
 
 </head>
 <body>
@@ -28,7 +44,7 @@
     <div id="preloader">
         <div id="status">
             <p class="center-text">
-                Cargando Contacto...            
+                Cargando Contáctenos...            
             </p>
         </div>
     </div>
@@ -37,39 +53,39 @@
     <div class="all-elements-adaptado">
         <div id="sidebar" class="page-sidebar">
             <div  class="page-sidebar-scroll scroll">
-                <div id="contentMenu" class="sidebar-content-background scroll">
+                <div id="contentMenu" class="sidebar-content-background">
                     <div class="sidebar-section">
-                        <a href="#" class="sidebar-close"></a>
+                        <a href="#" class="sidebar-close" onclick="esconderMenu()"></a>
                         <em>Menu</em>
                     </div>                
 
                     <div class="sidebar-logo"></div>   
 
                     <div class="sidebar-navigation">                              
-                        <div class="nav-item">
-                            <a href="acerca.html" class="nav-regular">Acerca de Mí</a>
+                        <div id="idLink" class="nav-item">
+                            <a href="index.html" class="nav-regular">Acerca de Mí</a>
                         </div>
                         <div class="nav-item plagas PlagasOrganismos">
                             <a href="busqueda.html" class="nav-regular">Plagas y Enfermedades</a>
                         </div>     
                         <div class="nav-item seccionesPlagasOrganismos">
-                            <a href="#" class="dropdown-nav">Plagas y Enfermedades</a>
+                            <a href="#" class="dropdown-nav bloqueo" onclick="showScroll()">Plagas y Enfermedades</a>
                             <div class="nav-item-submenu">
                                 <a href="busqueda.html">Ficha Técnica</a> 
                                 <a href="galeria.html">Galería de Fotos</a>                            
                             </div>
                         </div>                
                         <div class="nav-item">
-                            <a href="consejos.html" class="nav-regular">Consejos del Dr. Agro</a>
+                            <a href="consejos.html" class="nav-regular">Consejos del Dr.Agro</a>
                         </div>
                         <div class="nav-item PlagasOrganismos">
                             <a href="galeria.html" class="nav-regular">Galería de Fotos</a>
                         </div>                                        
                         <div class="nav-item">
-                            <a href="contacto.html" class="nav-regular">Contacto</a>
+                            <a href="contacto.html" class="nav-regular">Contáctenos</a>
                         </div>
                         <div class="nav-item">
-                            <a href="#" class="dropdown-nav">Administración</a>
+                            <a href="#" class="dropdown-nav" onclick="showScroll()">Administración</a>
                             <div class="nav-item-submenu">
                                 <a href="adminCultivo.html">Descargar Contenido</a>
                                 <a href="elimCultivo.html">Eliminar Contenido</a>
@@ -88,10 +104,10 @@
             </div>
         </div>
 
-        <div id="content" class="page-content scroll" style="height:100%;overflow-y:scroll">   
+        <div id="content" class="page-content">   
 
             <div class="content-controls">
-                <a href="#" class="deploy-sidebar"></a>
+                <a href="#" class="deploy-sidebar" onclick="mostrarMenu()"></a>
                 <em>CONTÁCTENOS</em>
             </div>
 
@@ -101,10 +117,10 @@
 
                 <div>               
 
-                    <H2 style="font-family:Verdana;font-weight:bold">Consulta con los expertos de Siembra</H2>
-                    <p style="text-align:left;font-family:Verdana">En esta sección usted se podrá comunicar con nosotros por medio de correo electrónico, haciendo clic en la siguiente opción...</p>
+                    <H2 style="font-family:Verdana;font-weight:bold">Consulta con expertos de Siembra</H2>
+                    <h4><p style="text-align:left;font-family:Verdana">En esta sección usted se podrá comunicar con nosotros por medio del correo electrónico, haciendo clic en la siguiente opción: </p></h4>
 
-                    <a href="mailto:dragro@corpoica.org.co?subject=CORREO%20PARA%20DR.AGRO&body=DATOS DEL USUARIO%0D%0A%0D%0ANombre:%0D%0AApellidos:%0D%0ACorreo Electrónico:%0D%0ATeléfono:%0D%0ADepartamento:%0D%0ACiudad:%0D%0A%0D%0APERFIL DEL USUARIO%0D%0A%0D%0AProfesión:%0D%0A%0D%0AMENSAJE%0D%0A%0D%0AMensaje:" class="button-big-icon icon-mail button-green enviarCorreo" style="width: 100%"><h2>Presiona este Botón para Enviarnos un Correo!</h2></a>
+                    <a href="mailto:siembra@corpoica.org.co?subject=CORREO%20DESDE%20DR.AGRO&body=DATOS DEL USUARIO%0D%0A%0D%0ANombre:%0D%0AApellidos:%0D%0ACorreo Electrónico:%0D%0ATeléfono:%0D%0ADepartamento:%0D%0ACiudad:%0D%0A%0D%0APERFIL DEL USUARIO%0D%0A%0D%0AProfesión:%0D%0A%0D%0AMENSAJE%0D%0A%0D%0AMensaje:" class="button-big-icon icon-mail button-green enviarCorreo" style="width: 100%"><h2>Envíenos un correo!</h2></a>
                     <br/>                     
                     <br/>
                     <div class="container">
@@ -112,7 +128,7 @@
                             <a href="#" class="deploy-toggle-2"  style="font-family:Verdana">Tenga en cuenta!</a>
                             <div class="toggle-content">
                                 <p style="text-align:left;font-size:14px;font-family:Verdana">
-                                    Es importante que tenga en cuenta que el servicio de consulta con expertos de Siembra amplía la ayuda a los usuarios de la aplicación Dr. Agro. El objetivo es orientar las inquietudes de orden técnico de los interesados frente al manejo integral y control de plagas y enfermedades en los diferentes sistemas productivos del país.
+                                    Es importante que tenga en cuenta que el servicio de Consulta con expertos de Siembra amplía la ayuda a los usuarios de la aplicación Dr. Agro.  El objetivo es orientar las inquietudes de orden técnico de los interesados frente al manejo integral y control de insectos – plagas y enfermedades en los diferentes sistemas productivos del país.   
                                 </p>
                             </div>
                         </div>
@@ -122,14 +138,11 @@
                             <a href="#" class="deploy-toggle-2"  style="font-family:Verdana">¿Cómo acceder al servicio?</a>
                             <div class="toggle-content">
                                 <p style="text-align:left;font-size:14px;font-family:Verdana">
-                                 Para acceder a este servicio, solo es necesario enviar un mensaje solicitando su usuario y contraseña a <a href="mailto:siembra@corpoica.org.co?subject=Solicitud usuario y contraseña" "email me">siembra@corpoica.org.co</a>. Una vez se encuentre inscrito ya puede acceder a los servicios de consulta con expertos. Si el sistema no tiene la respuesta a su pregunta, esta será direccionada a la entidad cooperante, quien atenderá su inquietud a través de esta plataforma en un término de 5 días calendario.
+                                 Para acceder al servicio, solo es necesario enviar un mensaje solicitando su usuario y contraseña a la dirección siembra@corpoica.org.co. Si el sistema no tiene la respuesta a su pregunta, esta será atendida por Gestores de Conocimiento de Siembra en un término de 5 días calendario.
                              </p>
                          </div>
                      </div>
-                 </div>                   
-
-
-                 <p style="font-family:Verdana;font-weight:bold">Ingrese ahora!</p>
+                 </div>                                    
             </div>       
 
 
@@ -146,6 +159,26 @@
 </div>  
 </body>
 </html>
+<script>
+function mostrar(){
+    $("#sidebar").css("display","block");
+    $('contentMenu').removeClass("scroll");   
+  
+}
+
+function esconderMenu(){    
+    // $(this).css("display","none");
+    $('contentMenu').removeClass("scroll");   
+    // isMenuVisible();   
+}
+
+function showScroll(){
+  var d = document.getElementById("contentMenu");
+  d.className = d.className + " scroll";
+  
+}
+
+</script>
 
 
 
