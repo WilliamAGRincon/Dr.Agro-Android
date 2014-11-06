@@ -63,9 +63,6 @@
             border: 1px solid #27ae60 !important;
         }
 
-       /* #sidebar{
-            display: none;
-        }*/
     </style>
 
 </head>
@@ -86,7 +83,7 @@
 <div class="all-elements-adaptado">
     <div id="sidebar" class="page-sidebar">
         <div class="page-sidebar-scroll scroll">
-         <div id="contentMenu" class="sidebar-content-background scroll" style="height:100%;">
+         <div id="contentMenu" class="sidebar-content-background" style="height:100%;">
            <div class="sidebar-section">
             <a href="#" class="sidebar-close" onclick="esconderMenu()"></a>
             <em>Menu</em>
@@ -103,7 +100,7 @@
                 <a href="busqueda.html" class="nav-regular">Plagas y Enfermedades</a>
             </div>     
             <div class="nav-item seccionesPlagasOrganismos">
-                <a href="#" class="dropdown-nav">Plagas y Enfermedades</a>
+                <a href="#" class="dropdown-nav" onclick="showScroll()">Plagas y Enfermedades</a>
                 <div class="nav-item-submenu">
                     <a href="busqueda.html">Ficha Técnica</a> 
                     <a href="galeria.html">Galería de Fotos</a>                            
@@ -119,7 +116,7 @@
                 <a href="contacto.html" class="nav-regular">Contáctenos</a>
             </div>
             <div class="nav-item">
-                <a href="#" class="dropdown-nav">Administración</a>
+                <a href="#" class="dropdown-nav" onclick="showScroll()">Administración</a>
                 <div class="nav-item-submenu">
                     <a href="adminCultivo.html">Descargar Contenido</a>
                     <a href="elimCultivo.html">Eliminar Contenido</a>
@@ -204,16 +201,22 @@
         document.location.href="index.html";
     }    
 
-function mostrarMenu(){
+function mostrar(){
     $("#sidebar").css("display","block");
+    $('contentMenu').removeClass("scroll");   
+  
 }
 
-function esconderMenu(){
-  //   $('#sidebar').fadeOut('fast', function () {
-  //   $(this).css("display","none");
-  //   $(this).delay(50).fadeOut('slow');
-  // });
-}    
+function esconderMenu(){    
+    // $(this).css("display","none");
+    $('contentMenu').removeClass("scroll");   
+    // isMenuVisible();   
+}
+
+function showScroll(){
+  var d = document.getElementById("contentMenu");
+  d.className = d.className + " scroll";  
+}
 </script>
 
 
